@@ -202,12 +202,12 @@ public class Registration extends JFrame {
 
 	public boolean receiveServer_1() {
 		try {
-			byte[] buffer = new byte[4];// aSocket.getReceiveBufferSize()
+			byte[] buffer = new byte[6];// aSocket.getReceiveBufferSize()
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			aSocket.receive(reply);
 			System.out.println("UDPClient1, Reply: "
 					+ new String(reply.getData()).trim());
-			if ((new String(reply.getData()).equals("True")))
+			if ((new String(reply.getData()).trim().equals("True")))
 				return true;
 			else
 				return false;

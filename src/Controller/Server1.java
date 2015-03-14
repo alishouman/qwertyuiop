@@ -75,7 +75,14 @@ public class Server1 {
           else return "False";
 	}
 
-	public void login(String username, String password) {
+	public String login(String username, String password) {
+		Database database=new Database();
+	    
+      
+    	boolean loggedin = database.checkLogin(username, password);
+      if(loggedin)
+    	  return "True";
+      else return "False";
 
 	}
 
@@ -88,38 +95,27 @@ public class Server1 {
 			setMessage(new String(request_FromClient.getData()));
 			String messages[] = message.split(";");
 			
-			if (messages[0].equals("Register"))
-			{
-				message=register(messages[1], messages[2],messages[3],messages[4]);
-			}
-			/*switch (message) {
+			
+			
+				
+			switch (messages[0]) {
 			case "vote":
 				aSocket.receive(request_FromClient);
 				String candidate = new String(request_FromClient.getData());
 				vote(candidate);
 				break;
 			case "Register":
-				aSocket.receive(request_FromClient);
-				String username = new String(request_FromClient.getData());
-				aSocket.receive(request_FromClient);
-				String password = new String(request_FromClient.getData());
-				aSocket.receive(request_FromClient);
-				candidate = new String(request_FromClient.getData());
-				aSocket.receive(request_FromClient);
-				String age = new String(request_FromClient.getData());
-				message=register(username, password,candidate,age);
-				System.out.println(getMessage());
+				message=register(messages[1], messages[2],messages[3],messages[4]);
+				
 				break;
 			case "login":
-				aSocket.receive(request_FromClient);
-				username = new String(request_FromClient.getData());
-				aSocket.receive(request_FromClient);
-				password = new String(request_FromClient.getData());
-				login(username, password);
+				message=login(messages[1], messages[2]);
+				
+				
 				break;
 			default:
 				break;
-			}*/
+			}
 		} catch (Exception e) {
 			System.out.println("SERVER_1: recieveFromClient FAILED");
 		}
