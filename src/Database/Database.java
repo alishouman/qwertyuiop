@@ -5,7 +5,7 @@ import java.sql.*;
 public class Database {
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-   static final String DB_URL = "jdbc:mysql://localhost/server";
+   static final String DB_URL = "jdbc:mysql://localhost/3303Project";
 
    //  Database credentials
    static final String USER = "root";
@@ -32,7 +32,7 @@ public class Database {
 
 	      
    }
-   public Boolean checkLogin(String username,String password){
+   public boolean checkLogin(String username,String password){
 	 
 	   boolean loginSuccessful=false;
 	   try{
@@ -85,7 +85,7 @@ public class Database {
 	  
 	}//end main
    
-   public Boolean register(String username,String password,String candidate,String age){
+   public boolean register(String username,String password,String candidate,String age){
 
 	   boolean registrationSuccessful=false;
 	   try{

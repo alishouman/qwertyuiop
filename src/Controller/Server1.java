@@ -11,8 +11,7 @@ import Database.Database;
 
 public class Server1 {
 
-	private int socket_no = 1111, portNumber = 3333, randomGenerator;
-	private int counterACK = 0, counterNACK = 0, length = 100;
+	private int socket_no = 1111;
 	private String name = "localhost", message;
 	private DatagramPacket request, request_FromClient;
 	private DatagramSocket aSocket = null;
@@ -28,27 +27,6 @@ public class Server1 {
 
 	public String getMessage() {
 		return message.trim();
-	}
-
-	public void statistics() {
-		DecimalFormat numberFormat = new DecimalFormat("#.00");
-		int totalCount = counterACK + counterNACK;
-		double percenAck = (counterACK * 1.0 / totalCount * 1.0) * 100;
-		double percenNack = (counterNACK * 1.0 / totalCount * 1.0) * 100;
-		try {
-			File file = new File("StatisticsResults.txt");
-			BufferedWriter output = new BufferedWriter(new FileWriter(file));
-			output.write("Total packets received " + totalCount + ".\n");
-			output.write(counterACK
-					+ " packets were received with an ACK, success percentage = "
-					+ numberFormat.format(percenAck) + "%.\n");
-			output.write(counterNACK
-					+ " packets were received with an NACK, failure percentage = "
-					+ numberFormat.format(percenNack) + "%.\n");
-			output.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public Server1() {
@@ -68,9 +46,7 @@ public class Server1 {
 	public void run() throws Exception {
 		while (true) {
 			recieveFromClient();
-			// send_Receive_Server_2();
 			sendToClient();
-			// statistics();
 		}
 	}
 
@@ -105,19 +81,19 @@ public class Server1 {
 
 	public void recieveFromClient() {
 		try {
-			byte[] buffer = new byte[length]; // aSocket.getReceiveBufferSize()
+			byte[] buffer = new byte[100]; // aSocket.getReceiveBufferSize()
 			request_FromClient = new DatagramPacket(buffer, buffer.length);
 			aSocket.receive(request_FromClient);
 
 			setMessage(new String(request_FromClient.getData()));
+	
 			switch (message) {
 			case "vote":
 				aSocket.receive(request_FromClient);
-
 				String candidate = new String(request_FromClient.getData());
 				vote(candidate);
 				break;
-			case "register":
+			case "Register":
 				aSocket.receive(request_FromClient);
 				String username = new String(request_FromClient.getData());
 				aSocket.receive(request_FromClient);
@@ -133,7 +109,7 @@ public class Server1 {
 				aSocket.receive(request_FromClient);
 				username = new String(request_FromClient.getData());
 				aSocket.receive(request_FromClient);
-				 password = new String(request_FromClient.getData());
+				password = new String(request_FromClient.getData());
 				login(username, password);
 				break;
 			default:
