@@ -123,11 +123,11 @@ public class Registration extends JFrame {
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					send_to_server("Register"+
-							"$"+jtfUsername.getText().toString()
-							+"$"+jtfPassword.getText().toString()
-							+"$"+jtfCandidate.getText().toString()
-							+"$"+jtfAge.getText().toString());
+					send_to_server("Register"
+							+";"+jtfUsername.getText().toString()
+							+";"+jtfPassword.getText().toString()
+							+";"+jtfCandidate.getText().toString()
+							+";"+jtfAge.getText().toString());
 					/*send_to_server("Register");
 					Register_info.add(jtfUsername.getText().toString());
 					Register_info.add(jtfPassword.getText().toString());

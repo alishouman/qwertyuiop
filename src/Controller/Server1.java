@@ -86,7 +86,13 @@ public class Server1 {
 			aSocket.receive(request_FromClient);
 
 			setMessage(new String(request_FromClient.getData()));
-			switch (message) {
+			String messages[] = message.split(";");
+			
+			if (messages[0].equals("Register"))
+			{
+				message=register(messages[1], messages[2],messages[3],messages[4]);
+			}
+			/*switch (message) {
 			case "vote":
 				aSocket.receive(request_FromClient);
 				String candidate = new String(request_FromClient.getData());
@@ -113,7 +119,7 @@ public class Server1 {
 				break;
 			default:
 				break;
-			}
+			}*/
 		} catch (Exception e) {
 			System.out.println("SERVER_1: recieveFromClient FAILED");
 		}
