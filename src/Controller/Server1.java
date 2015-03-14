@@ -86,7 +86,6 @@ public class Server1 {
 			aSocket.receive(request_FromClient);
 
 			setMessage(new String(request_FromClient.getData()));
-	
 			switch (message) {
 			case "vote":
 				aSocket.receive(request_FromClient);
@@ -99,11 +98,11 @@ public class Server1 {
 				aSocket.receive(request_FromClient);
 				String password = new String(request_FromClient.getData());
 				aSocket.receive(request_FromClient);
-				 candidate = new String(request_FromClient.getData());
+				candidate = new String(request_FromClient.getData());
 				aSocket.receive(request_FromClient);
 				String age = new String(request_FromClient.getData());
 				message=register(username, password,candidate,age);
-				sendToClient();
+				System.out.println(getMessage());
 				break;
 			case "login":
 				aSocket.receive(request_FromClient);

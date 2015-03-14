@@ -123,14 +123,19 @@ public class Registration extends JFrame {
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					send_to_server("Register");
+					send_to_server("Register"+
+							"$"+jtfUsername.getText().toString()
+							+"$"+jtfPassword.getText().toString()
+							+"$"+jtfCandidate.getText().toString()
+							+"$"+jtfAge.getText().toString());
+					/*send_to_server("Register");
 					Register_info.add(jtfUsername.getText().toString());
 					Register_info.add(jtfPassword.getText().toString());
 					Register_info.add(jtfCandidate.getText().toString());
 					Register_info.add(jtfAge.getText().toString());
 					for (int i = 0; i < Register_info.size(); i++) {
 						send_to_server(Register_info.get(i));
-					}
+					}*/
 					if (!receiveServer_1()) {
 						status.setText("Status:Not Registered");
 						JOptionPane.showMessageDialog(null,
