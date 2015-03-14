@@ -34,7 +34,7 @@ public class Vote extends JFrame {
    Vote(String username) {
 	   this.username=username;
 	   String[] candidateNames = { "Candidate 1", "Candidate 2", "Candidate 3", "Candidate 4", "Candidate 5" };
-	  this.candidates =new JComboBox(candidateNames);
+	   this.candidates =new JComboBox(candidateNames);
 	  
         //create menu bar
         JMenuBar jmb = new JMenuBar();
@@ -114,7 +114,7 @@ public class Vote extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	Database database=new Database();
                try {
-                  boolean voted = database.vote(this.username,);
+                  boolean voted = database.vote(username,candidates.getSelectedItem().toString());
                    if (!voted) {
                         //JOptionPane.showMessageDialog(null, "Sorry, wrong credentials");
                         status.setText("Status:Not Registered");
