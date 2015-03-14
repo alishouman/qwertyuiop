@@ -123,6 +123,43 @@ registrationSuccessful=true;
 	   return registrationSuccessful;
 	  
 	}//end main
-   
+   public boolean vote(String username,String candidate){
+
+	   boolean votingSuccessful=false;
+	   try{
+	  
+	      sql = "INSERT INTO users(Candidate) VALUES (candidate) WHERE Username="+username;
+	     stmt.executeUpdate(sql);
+votingSuccessful=true;
+	      //STEP 5: Extract data from result set
+	   
+	      
+	      //STEP 6: Clean-up environment
+	      
+	      stmt.close();
+	      conn.close();
+	   }catch(SQLException se){
+	      //Handle errors for JDBC
+	      se.printStackTrace();
+	   }catch(Exception e){
+	      //Handle errors for Class.forName
+	      e.printStackTrace();
+	   }finally{
+	      //finally block used to close resources
+	      try{
+	         if(stmt!=null)
+	            stmt.close();
+	      }catch(SQLException se2){
+	      }// nothing we can do
+	      try{
+	         if(conn!=null)
+	            conn.close();
+	      }catch(SQLException se){
+	         se.printStackTrace();
+	      }//end finally try
+	   }//end try
+	   return votingSuccessful;
+	  
+	}
    
 }//end FirstExample

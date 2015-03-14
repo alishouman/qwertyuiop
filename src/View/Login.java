@@ -133,7 +133,7 @@ public class Login extends JFrame {
 						status.setText("Status:Logged in");
 						Login.this.dispose();
 						Login.this.setVisible(false);
-						Vote vote = new Vote();
+						Vote vote = new Vote(jtfUsername.getText().toString());
 						vote.setSize(500, 500);
 						vote.setLocationRelativeTo(null);
 						vote.setVisible(true);

@@ -108,7 +108,7 @@ public class Server1 {
 				message=register(messages[1], messages[2],messages[3],messages[4]);
 				
 				break;
-			case "login":
+			case "Login":
 				message=login(messages[1], messages[2]);
 				
 				

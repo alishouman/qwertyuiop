@@ -21,20 +21,18 @@ public class Vote extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JTextField jtfUsername = new JTextField(20);
-    JTextField jtfPassword = new JTextField(16);
-    JTextField jtfCandidate = new JTextField(20);
-    JTextField jtfAge = new JTextField(4);
+	
+  
     JComboBox candidates;
-    
+    String username;
     JButton backButton = new JButton("Back");
     JButton registerButton = new JButton("Register");
     JMenuItem jmiLogin, jmiBack, jmiHelp, jmiAbout;
     JLabel status = new JLabel("Status:Not Registered");
 
 
-   Vote() {
-
+   Vote(String username) {
+	   this.username=username;
 	   String[] candidateNames = { "Candidate 1", "Candidate 2", "Candidate 3", "Candidate 4", "Candidate 5" };
 	  this.candidates =new JComboBox(candidateNames);
 	  
@@ -116,8 +114,8 @@ public class Vote extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	Database database=new Database();
                try {
-                  boolean registered = database.register(jtfUsername.getText(), jtfPassword.getText(),jtfCandidate.getText(),jtfAge.getText());
-                   if (!registered) {
+                  boolean voted = database.vote(this.username,);
+                   if (!voted) {
                         //JOptionPane.showMessageDialog(null, "Sorry, wrong credentials");
                         status.setText("Status:Not Registered");
                         JOptionPane.showMessageDialog(null,"Sorry, wrong credentials");
