@@ -5,13 +5,19 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
-
-
-
-import javax.swing.*;
-
-import Database.Database;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class MainMenu extends JFrame {
 
@@ -25,12 +31,11 @@ public class MainMenu extends JFrame {
     JButton loginButton = new JButton("Login");
     JButton registerButton = new JButton("Register");
     JMenuItem jmiLogin, jmiBack, jmiHelp, jmiAbout;
-
+   
 
 
     MainMenu() {
-
-
+    	
         //create menu bar
         JMenuBar jmb = new JMenuBar();
 
@@ -135,6 +140,7 @@ public class MainMenu extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
+  
 }
 
 
