@@ -128,8 +128,21 @@ registrationSuccessful=true;
 	   boolean votingSuccessful=false;
 	   try{
 	  
-	      sql = "INSERT INTO users(Candidate) VALUES (candidate) WHERE Username="+username;
+	      sql = "UPDATE users SET Candidate= '"+candidate+"'"+" WHERE Username='"+username+"'";
 	     stmt.executeUpdate(sql);
+	     sql = "Select * from candidates WHERE candidate_name='"+candidate+"'";
+	     
+ResultSet rs = stmt.executeQuery(sql);
+int number_of_votes = 0;
+while (rs.next())
+{
+ number_of_votes = rs.getInt("number_of_votes");
+  
+}
+number_of_votes++;
+sql = "UPDATE candidates SET number_of_votes="+number_of_votes+" WHERE candidate_name='"+candidate+"'";
+stmt.executeUpdate(sql);
+   
 votingSuccessful=true;
 	      //STEP 5: Extract data from result set
 	   

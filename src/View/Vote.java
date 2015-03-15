@@ -31,8 +31,8 @@ public class Vote extends JFrame {
     JLabel status = new JLabel("Status:Not Registered");
 
 
-   Vote(String username) {
-	   this.username=username;
+   Vote( String username1) {
+	   this.username=username1;
 	   String[] candidateNames = { "Candidate 1", "Candidate 2", "Candidate 3", "Candidate 4", "Candidate 5" };
 	   this.candidates =new JComboBox(candidateNames);
 	  
