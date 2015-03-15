@@ -10,6 +10,11 @@ import java.awt.event.ActionListener;
 
 
 
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 import Database.Database;
@@ -29,7 +34,9 @@ public class Vote extends JFrame {
     JButton registerButton = new JButton("Register");
     JMenuItem jmiLogin, jmiBack, jmiHelp, jmiAbout;
     JLabel status = new JLabel("Status:Not Registered");
-
+	private final int portNumber = 1111;
+	private DatagramSocket aSocket = null;
+	private ArrayList<String> Register_info;
 
    Vote( String username1) {
 	   this.username=username1;
@@ -112,10 +119,15 @@ public class Vote extends JFrame {
         //action listeners for Login in button and menu item
         registerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	Database database=new Database();
+            	
+            	
                try {
-                  boolean voted = database.vote(username,candidates.getSelectedItem().toString());
-                   if (!voted) {
+            	   send_to_server("Vote"
+   						+";"+username
+   						+";"+candidates.getSelectedItem().toString());
+              
+               	
+                   if (!receiveServer_1()) {
                         //JOptionPane.showMessageDialog(null, "Sorry, wrong credentials");
                         status.setText("Status:Havent Voted");
                         JOptionPane.showMessageDialog(null,"Sorry, wrong credentials");
@@ -145,7 +157,36 @@ public class Vote extends JFrame {
             }
         });
     }
+   public void send_to_server(String message) {
+		try {
+			aSocket = new DatagramSocket();
+			byte[] m = message.getBytes();
+			InetAddress aHost = InetAddress.getByName("localhost"); // localHost
+			DatagramPacket request = new DatagramPacket(m, message.length(),
+					aHost, portNumber);
+			aSocket.send(request);
+		} catch (Exception e) {
+			System.out.println("Send to server Failed!!");
+		}
+	}
 
+	public boolean receiveServer_1() {
+		try {
+			byte[] buffer = new byte[6];// aSocket.getReceiveBufferSize()
+			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+			aSocket.receive(reply);
+			System.out.println("UDPClient1, Reply: "
+					+ new String(reply.getData()).trim());
+			if ((new String(reply.getData()).trim().equals("True")))
+				return true;
+			else
+				return false;
+		} catch (Exception e) {
+			System.out.println("Server couldn't register you!!");
+			return false;
+
+		}
+	}
    
 }
 

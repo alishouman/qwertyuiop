@@ -60,8 +60,14 @@ public class Server1 {
 		}
 	}
 
-	public void vote(String candidate) {
-
+	public String vote(String username,String candidate) {
+		Database database=new Database();
+	    
+     
+    	boolean voted = database.vote(username, candidate);
+      if(voted)
+    	  return "True";
+      else return "False";
 	}
 
 	public String register(String username, String password,String candidate,String age) {
@@ -93,16 +99,16 @@ public class Server1 {
 			aSocket.receive(request_FromClient);
 
 			setMessage(new String(request_FromClient.getData()));
+			System.out.println(message);
 			String messages[] = message.split(";");
 			
 			
 			
 				
 			switch (messages[0]) {
-			case "vote":
-				aSocket.receive(request_FromClient);
-				String candidate = new String(request_FromClient.getData());
-				vote(candidate);
+			case "Vote":
+				message=vote(messages[1], messages[2]);
+				
 				break;
 			case "Register":
 				message=register(messages[1], messages[2],messages[3],messages[4]);
