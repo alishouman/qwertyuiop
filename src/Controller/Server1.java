@@ -1,11 +1,10 @@
 package Controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.net.*;
-import java.io.*;
-import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Random;
-
-import javax.swing.JOptionPane;
 
 import Database.Database;
 
@@ -16,6 +15,8 @@ public class Server1 {
 	private DatagramPacket request, request_FromClient;
 	private DatagramSocket aSocket = null;
 	private Random r;
+	private ArrayList <String> candidates;
+	 
 
 	public static void main(String args[]) {
 		new Server1();
@@ -34,6 +35,15 @@ public class Server1 {
 			System.out.println("Server_1, Usage: java UDPServer <" + socket_no
 					+ ">");
 			aSocket = new DatagramSocket(socket_no);
+			
+			candidates = new ArrayList<String>();
+	    	try{
+	    		generateCandidates();
+	    	}catch (Exception e)
+	    	{
+	    		System.out.println("couldnt get the contents from the file");
+	    	}
+	    	
 			while (true) {
 				run();
 			}
@@ -112,12 +122,9 @@ public class Server1 {
 				break;
 			case "Register":
 				message=register(messages[1], messages[2],messages[3],messages[4]);
-				
 				break;
 			case "Login":
-				message=login(messages[1], messages[2]);
-				
-				
+				message=login(messages[1], messages[2]);	
 				break;
 			default:
 				break;
@@ -142,4 +149,12 @@ public class Server1 {
 	 * catch (Exception e) {
 	 * System.out.println("SERVER_1: send_Receive_Server_2 FAILED"); } }
 	 */
+	public void generateCandidates() throws Exception {
+		BufferedReader in = new BufferedReader(new FileReader("candidates.txt"));
+		String line;
+		while ((line = in.readLine()) != null) {
+			candidates.add(line);
+		}
+		in.close();
+	}
 }
