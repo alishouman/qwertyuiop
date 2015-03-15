@@ -143,6 +143,12 @@ public class Registration extends JFrame {
 						return;
 					} else {
 						status.setText("Status:Registered");
+						MainMenu menu=new MainMenu();
+						dispose();
+						setVisible(false);
+						menu.setSize(500, 500);
+			               menu.setLocationRelativeTo(null);
+			               menu.setVisible(true);
 					}
 				} catch (Exception se) {
 					se.printStackTrace();
