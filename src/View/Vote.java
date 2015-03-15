@@ -66,10 +66,10 @@ public class Vote extends JFrame {
         //panel p2 to holds buttons
         JPanel p2 = new JPanel(new FlowLayout());
         p2.add(backButton = new JButton("Back"));
-        p2.add(registerButton = new JButton("Register"));
+        p2.add(registerButton = new JButton("Vote"));
 
         JPanel p3 = new JPanel(new FlowLayout());
-        p3.add(status = new JLabel("Status:Not Registered"));
+        p3.add(status = new JLabel("Status:Havent Voted"));
 
         //Panel with image??????
 
@@ -103,7 +103,7 @@ public class Vote extends JFrame {
         jmiAbout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,
-                        "This is the login panel"
+                        "This is the voting panel"
                         + "\n Assignment for University",
                         "About", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -117,12 +117,12 @@ public class Vote extends JFrame {
                   boolean voted = database.vote(username,candidates.getSelectedItem().toString());
                    if (!voted) {
                         //JOptionPane.showMessageDialog(null, "Sorry, wrong credentials");
-                        status.setText("Status:Not Registered");
+                        status.setText("Status:Havent Voted");
                         JOptionPane.showMessageDialog(null,"Sorry, wrong credentials");
                         return;
                     }
                    else{
-                	   status.setText("Status:Registered");
+                	   status.setText("Status:Voted");
                      
                    }
                 } catch (Exception se) {
