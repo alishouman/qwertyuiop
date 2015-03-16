@@ -1,6 +1,11 @@
 package Database;
 //STEP 1. Import required packages
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Database {
    // JDBC driver name and database URL
@@ -14,8 +19,8 @@ public class Database {
    Statement stmt = null;
    String sql;
    public Database(){
-	   //STEP 2: Register JDBC driver
-	      try {
+	   //STEP 2: Register JDBC drive   
+	   	try {
 			Class.forName("com.mysql.jdbc.Driver");
 
 		      //STEP 3: Open a connection
@@ -196,5 +201,67 @@ votingSuccessful=true;
 	   return votingSuccessful;
 	  
 	}
-   
-}//end FirstExample
+ 
+	public boolean fillCandidates(ArrayList<String> candidates) {
+		try {
+			for (String candidate : candidates) {
+				sql = "INSERT INTO candidates(candidate_name, number_of_votes) VALUES ('"
+						+ candidate + "','" + 0 + "')";
+				stmt.executeUpdate(sql);
+			}
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+	public int getVotesCount(int portNumber, String Candidate_name) {
+		ResultSet rs;
+		int result = 0;
+		try {
+			sql = "Select * from candidates WHERE candidate_name='"
+					+ Candidate_name + "'";
+				rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				result = rs.getInt("number_of_votes");
+			}
+		} catch (SQLException e) {
+			System.out.println("getVotesCount() Failed!");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public ArrayList<String> getCandidates(int portNumber) {
+		ArrayList<String> candidates = new ArrayList<String>();
+		ResultSet rs;
+		try {
+			sql = "Select * from candidates";
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				candidates.add(rs.getString("candidate_name"));
+			}
+		} catch (SQLException e) {
+			System.out.println("getCandidates() Failed!");
+			e.printStackTrace();
+		}
+		return candidates;	
+		}
+	public int totalNumberOfVotes(int portNumber) {
+		int sum = 0;
+		ResultSet rs;
+		ArrayList<String> candidates = new ArrayList<String>();
+		try {
+			sql = "SELECT COUNT(*) AS rowcount FROM candidates";
+			rs = stmt.executeQuery(sql);
+			rs.next();
+			int count = rs.getInt("rowcount");
+			candidates = getCandidates(1);
+			for (int i = 0; i < count; i++) {
+				sum += getVotesCount(1, candidates.get(i));
+			}
+		} catch (SQLException e) {
+			System.out.println("totalNumberOfVotes() Failed!");
+			e.printStackTrace();
+		}
+		return sum;
+	}
+}// end FirstExample

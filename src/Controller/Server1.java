@@ -2,7 +2,8 @@ package Controller;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -41,7 +42,7 @@ public class Server1 {
 	    		generateCandidates();
 	    	}catch (Exception e)
 	    	{
-	    		System.out.println("couldnt get the contents from the file");
+	    		System.out.println("generate Candidates failed!!");
 	    	}
 	    	
 			while (true) {
@@ -133,22 +134,6 @@ public class Server1 {
 			System.out.println("SERVER_1: recieveFromClient FAILED");
 		}
 	}
-	/*
-	 * public void send_Receive_Server_2() { try { r = new Random();
-	 * randomGenerator = r.nextInt(3); if (randomGenerator == 0) message = "0";
-	 * byte[] m = message.getBytes(); InetAddress aHost =
-	 * InetAddress.getByName(name); request = new DatagramPacket(m,
-	 * message.length(), aHost, portNumber);
-	 * System.out.println("Server_1: sending "+getMessage()+" to Server_2");
-	 * aSocket.send(request); byte[] buffer = new
-	 * byte[length];//aSocket.getReceiveBufferSize() DatagramPacket reply = new
-	 * DatagramPacket(buffer, buffer.length); aSocket.receive(reply);
-	 * setMessage(new String(reply.getData())); if (getMessage().equals("ACK"))
-	 * counterACK++; else counterNACK++;
-	 * System.out.println("Server_1, Reply from Server_2: " + getMessage()); }
-	 * catch (Exception e) {
-	 * System.out.println("SERVER_1: send_Receive_Server_2 FAILED"); } }
-	 */
 	public void generateCandidates() throws Exception {
 		BufferedReader in = new BufferedReader(new FileReader("candidates.txt"));
 		String line;
@@ -156,5 +141,8 @@ public class Server1 {
 			candidates.add(line);
 		}
 		in.close();
+		Database database=new Database();
+		database.fillCandidates(candidates);
+		//System.out.println(database.totalNumberOfVotes(1));
 	}
 }
