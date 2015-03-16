@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,6 +21,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import Database.Database;
 
 public class Login extends JFrame {
 
@@ -133,7 +136,9 @@ public class Login extends JFrame {
 						status.setText("Status:Logged in");
 						Login.this.dispose();
 						Login.this.setVisible(false);
-						Vote vote = new Vote(jtfUsername.getText().toString());
+						Database database=new Database();
+						ArrayList<String>candidates=database.getCandidates(1111);
+						Vote vote = new Vote(jtfUsername.getText().toString(),candidates);
 						vote.setSize(500, 500);
 						vote.setLocationRelativeTo(null);
 						vote.setVisible(true);

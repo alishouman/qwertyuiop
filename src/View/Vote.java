@@ -32,15 +32,20 @@ public class Vote extends JFrame {
     String username;
     JButton backButton = new JButton("Back");
     JButton registerButton = new JButton("Register");
+    JButton resultButton = new JButton("View Results");
     JMenuItem jmiLogin, jmiBack, jmiHelp, jmiAbout;
     JLabel status = new JLabel("Status:Not Registered");
 	private final int portNumber = 1111;
 	private DatagramSocket aSocket = null;
 	private ArrayList<String> Register_info;
 
-   Vote( String username1) {
+   Vote( String username1, ArrayList<String> candidates2) {
 	   this.username=username1;
-	   String[] candidateNames = { "Candidate 1", "Candidate 2", "Candidate 3", "Candidate 4", "Candidate 5" };
+	   String[] candidateNames =new String[candidates2.size()];
+	   for(int i=0;i<candidates2.size();i++)
+		   candidateNames[i]=candidates2.get(i);
+		   
+	  
 	   this.candidates =new JComboBox(candidateNames);
 	  
         //create menu bar
@@ -74,6 +79,7 @@ public class Vote extends JFrame {
         JPanel p2 = new JPanel(new FlowLayout());
         p2.add(backButton = new JButton("Back"));
         p2.add(registerButton = new JButton("Vote"));
+        p2.add(resultButton = new JButton("View Results"));
 
         JPanel p3 = new JPanel(new FlowLayout());
         p3.add(status = new JLabel("Status:Havent Voted"));
@@ -115,7 +121,31 @@ public class Vote extends JFrame {
                         "About", JOptionPane.INFORMATION_MESSAGE);
             }
         });
+        resultButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	
+            	
+               try {
+            	   send_to_server("Result");            
+               	
+                   if (!receiveServer_1()) {
+                        //JOptionPane.showMessageDialog(null, "Sorry, wrong credentials");
+                      
+                        JOptionPane.showMessageDialog(null,"Sorry, wrong credentials");
+                        return;
+                    }
+                  
+                } catch (Exception se) {
+                    se.printStackTrace();
+                    JOptionPane.showMessageDialog(null,
+                            "Sorry, couldn't check your credentials. Check the logs and report the problem to an administrator.");
+                    return;
+                }
+                
 
+
+            }
+        });
         //action listeners for Login in button and menu item
         registerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

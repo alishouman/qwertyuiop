@@ -38,7 +38,7 @@ public class ElectionResult extends JFrame {
 	JPanel splitPane;
 	JPanel result;
 	
-	public ElectionResult() {
+	public ElectionResult(final int[]values) {
 	//	getContentPane().setLayout();
 		//Create a split pane with the two scroll panes in it.
 	//	Icon image = new ImageIcon( "obama.jpg" );
@@ -103,7 +103,7 @@ public class ElectionResult extends JFrame {
 		toolBar.add(lblWelcomeToThe);
 		pieChart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MyComponent comp= new MyComponent();
+				MyComponent comp= new MyComponent(values);
 				/*Dimension minimumSize = new Dimension(getWidth()/2, getHeight());
 				comp.setMinimumSize(minimumSize);*/
 				result.removeAll();
@@ -138,16 +138,8 @@ public class ElectionResult extends JFrame {
 		});
 	}
 
-	 public static BufferedImage resizeImage(final Image image, int width, int height) {
-	        final BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-	        final Graphics2D graphics2D = bufferedImage.createGraphics();
-	        graphics2D.setComposite(AlphaComposite.Src);
-	        graphics2D.drawImage(image, 0, 0, width, height, null);
-	        graphics2D.dispose();
-	 
-	        return bufferedImage;
-	    }
-public static void main (String []args){
+	
+/*public static void main (String []args){
 	ElectionResult e =new  ElectionResult();
 	
 		e.setSize(500, 500);
@@ -155,5 +147,5 @@ public static void main (String []args){
         e.setVisible(true);
 	
 
-}
+}*/
 }

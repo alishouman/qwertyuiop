@@ -17,10 +17,17 @@ class Slice {
    }
 }
 class MyComponent extends JComponent {
-   Slice[] slices = { new Slice(5, Color.black), 
-   new Slice(33, Color.green),
-   new Slice(20, Color.yellow), new Slice(15, Color.red) };
-   MyComponent() {}
+   Slice[] slices;
+
+   MyComponent(int[]values) {
+	   slices=new Slice[values.length];
+	   Color[] colors={Color.black,Color.green,Color.BLUE,Color.CYAN,Color.DARK_GRAY,Color.MAGENTA,Color.ORANGE,Color.YELLOW,Color.WHITE,Color.RED,Color.PINK,Color.GRAY,Color.LIGHT_GRAY};
+	   for(int i=0;i<values.length;i++){
+		   slices[i]=new Slice(values[i],colors[i]);
+	   }
+		   
+	   
+   }
    public void paint(Graphics g) {
       drawPie((Graphics2D) g, getBounds(), slices);
    }
@@ -42,10 +49,10 @@ class MyComponent extends JComponent {
    }
 }
 public class PieChart {
-   public static void main(String[] argv) {
+  /* public static void main(String[] argv) {
       JFrame frame = new JFrame();
       frame.getContentPane().add(new MyComponent());
       frame.setSize(300, 200);
       frame.setVisible(true);
-   }
+   }*/
 }

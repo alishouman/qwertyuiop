@@ -2,8 +2,11 @@ package Controller;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,6 +15,8 @@ import Database.Database;
 public class Server1 {
 
 	private int socket_no = 1111;
+	private final int portNumber = 3333;
+	private DatagramSocket server3Socket = null;
 	private String name = "localhost", message;
 	private DatagramPacket request, request_FromClient;
 	private DatagramSocket aSocket = null;
@@ -102,6 +107,8 @@ public class Server1 {
       else return "False";
 
 	}
+	
+
 
 	public void recieveFromClient() {
 		try {
@@ -127,11 +134,28 @@ public class Server1 {
 			case "Login":
 				message=login(messages[1], messages[2]);	
 				break;
+			case "Result":
+				message="True";
+				System.out.println("FDFD");
+				sendToServer3();
 			default:
 				break;
 			}
 		} catch (Exception e) {
 			System.out.println("SERVER_1: recieveFromClient FAILED");
+		}
+	}
+	public void sendToServer3(){
+	
+		try {
+			
+			byte[] m = message.getBytes();
+			InetAddress aHost = InetAddress.getByName("localhost"); // localHost
+			DatagramPacket request = new DatagramPacket(m, message.length(),
+					aHost, portNumber);
+			aSocket.send(request);
+		} catch (Exception e) {
+			System.out.println("Send to server Failed!!");
 		}
 	}
 	public void generateCandidates() throws Exception {
