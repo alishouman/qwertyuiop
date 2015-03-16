@@ -14,16 +14,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
  
 public class BarChart2 extends JPanel {
-  private double[] values;
+  private int[] values;
  
   private String[] names;
  
   private String title;
+  private Color []  colors={Color.black,Color.green,Color.BLUE,Color.CYAN,Color.DARK_GRAY,Color.MAGENTA,Color.ORANGE,Color.YELLOW,Color.WHITE,Color.RED,Color.PINK,Color.GRAY,Color.LIGHT_GRAY};
+
  
-  public BarChart2(double[] v, String[] n, String t) {
+  public BarChart2(int[] values2, String[] n, String t) {
     names = n;
-    values = v;
+    values = values2;
     title = t;
+	    
+
   }
  
   public void paintComponent(Graphics g) {
@@ -74,7 +78,7 @@ public class BarChart2 extends JPanel {
         height = -height;
       }
  
-      g.setColor(Color.red);
+      g.setColor(colors[i]);
       g.fillRect(valueX, valueY, barWidth - 2, height);
       g.setColor(Color.black);
       g.drawRect(valueX, valueY, barWidth - 2, height);
@@ -83,7 +87,7 @@ public class BarChart2 extends JPanel {
       g.drawString(names[i], x, y);
     }
   }
-  public static void main(String[] argv) {
+ /* public static void main(String[] argv) {
 	    JFrame f = new JFrame();
 	    f.setSize(400, 300);
 	    double[] values = new double[5];
@@ -109,6 +113,6 @@ public class BarChart2 extends JPanel {
 	    };
 	    f.addWindowListener(wndCloser);
 	    f.setVisible(true);
-	  }
+	  }*/
 }
   

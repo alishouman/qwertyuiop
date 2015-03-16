@@ -33,12 +33,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ElectionResult extends JFrame {
 	JPanel splitPane;
 	JPanel result;
 	
-	public ElectionResult(final int[]values) {
+	public ElectionResult(final int[]values,final String[] names) {
 	//	getContentPane().setLayout();
 		//Create a split pane with the two scroll panes in it.
 	//	Icon image = new ImageIcon( "obama.jpg" );
@@ -113,20 +114,7 @@ public class ElectionResult extends JFrame {
 		});
 		barChart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				double[] values = new double[5];
-			    String[] names = new String[5];
-			    values[0] = 1;
-			    names[0] = "Item 1";
-			 
-			    values[1] = 2;
-			    names[1] = "Item 2";
-			 
-			    values[2] = 4;
-			    names[2] = "Item 3";
-			    values[3] = 4;
-			    names[3] = "Item 3";
-			    values[4] = 4;
-			    names[4] = "Item 3";
+				
 				BarChart2 bar= new BarChart2(values,names,"Result");
 				/*Dimension minimumSize = new Dimension(getWidth()/2, getHeight());
 				bar.setMinimumSize(minimumSize);

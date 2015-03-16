@@ -37,8 +37,10 @@ public class Server3 {
 				values[i]=database.getVotesCount(1111, candidates.get(i));
 				System.out.println("Value is "+values[i]);
 			}
-			
-	 result=new ElectionResult(values);
+			String[]names=new String[candidates.size()];
+			for(int i=0;i<candidates.size();i++)
+				names[i]=candidates.get(i);
+	 result=new ElectionResult(values,names);
 		result.setSize(500, 500);
         result.setLocationRelativeTo(null);
         result.setVisible(true);}
