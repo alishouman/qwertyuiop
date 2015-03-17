@@ -22,7 +22,7 @@ public class test {
 	    public void testVote2() {
 		    Server1 myUnit = new Server1();
 	        String result = myUnit.vote("peter", "David");
-	        assertEquals("True", result);
+	        assertEquals("False", result);
 	   }
 	   
 	   @Test

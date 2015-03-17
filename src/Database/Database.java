@@ -135,7 +135,9 @@ registrationSuccessful=true;
 		
 		    	 
 	      sql = "UPDATE users SET Candidate= '"+candidate+"'"+" WHERE Username='"+username+"'";
-	     stmt.executeUpdate(sql);
+	   int value=  stmt.executeUpdate(sql);
+	   if(value==0)
+		   return false;
 	     sql = "Select * from candidates WHERE candidate_name='"+candidate+"'";
 	     
 ResultSet rs = stmt.executeQuery(sql);
