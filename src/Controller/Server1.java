@@ -2,13 +2,10 @@ package Controller;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.util.ArrayList;
-import java.util.Random;
 
 import Database.Database;
 
@@ -16,13 +13,10 @@ public class Server1 {
 
 	private int socket_no = 1111;
 	private final int portNumber = 3333;
-	private DatagramSocket server3Socket = null;
-	private String name = "localhost", message;
-	private DatagramPacket request, request_FromClient;
+	private String message;
+	private DatagramPacket request_FromClient;
 	private DatagramSocket aSocket = null;
-	private Random r;
-	private ArrayList <String> candidates;
-	 
+	private ArrayList<String> candidates;
 
 	public static void main(String args[]) {
 		new Server1();
@@ -41,15 +35,14 @@ public class Server1 {
 			System.out.println("Server_1, Usage: java UDPServer <" + socket_no
 					+ ">");
 			aSocket = new DatagramSocket(socket_no);
-			
+
 			candidates = new ArrayList<String>();
-	    	try{
-	    		generateCandidates();
-	    	}catch (Exception e)
-	    	{
-	    		System.out.println("generate Candidates failed!!");
-	    	}
-	    	
+			try {
+				generateCandidates();
+			} catch (Exception e) {
+				System.out.println("generate Candidates failed!!");
+			}
+
 			while (true) {
 				run();
 			}
@@ -76,39 +69,40 @@ public class Server1 {
 		}
 	}
 
-	public String vote(String username,String candidate) {
-		Database database=new Database();
-	    
-     
-    	boolean voted = database.vote(username, candidate);
-      if(voted)
-    	  return "True";
-      else return "False";
+	public String vote(String username, String candidate) {
+		Database database = new Database();
+
+		boolean voted = database.vote(username, candidate);
+		if (voted)
+			return "True";
+		else
+			return "False";
 	}
 
-	public String register(String username, String password,String candidate,String age) {
-		Database database=new Database();
-    
-            if (Integer.parseInt(age)<18)
-            	return "False";
-        	boolean registered = database.register(username, password,candidate,age);
-          if(registered)
-        	  return "True";
-          else return "False";
+	public String register(String username, String password, String candidate,
+			String age) {
+		Database database = new Database();
+
+		if (Integer.parseInt(age) < 18)
+			return "False";
+		boolean registered = database.register(username, password, candidate,
+				age);
+		if (registered)
+			return "True";
+		else
+			return "False";
 	}
 
 	public String login(String username, String password) {
-		Database database=new Database();
-	    
-      
-    	boolean loggedin = database.checkLogin(username, password);
-      if(loggedin)
-    	  return "True";
-      else return "False";
+		Database database = new Database();
+
+		boolean loggedin = database.checkLogin(username, password);
+		if (loggedin)
+			return "True";
+		else
+			return "False";
 
 	}
-	
-
 
 	public void recieveFromClient() {
 		try {
@@ -119,23 +113,21 @@ public class Server1 {
 			setMessage(new String(request_FromClient.getData()));
 			System.out.println(message);
 			String messages[] = message.split(";");
-			
-			
-			
-				
+
 			switch (messages[0]) {
 			case "Vote":
-				message=vote(messages[1], messages[2]);
-				
+				message = vote(messages[1], messages[2]);
+
 				break;
 			case "Register":
-				message=register(messages[1], messages[2],messages[3],messages[4]);
+				message = register(messages[1], messages[2], messages[3],
+						messages[4]);
 				break;
 			case "Login":
-				message=login(messages[1], messages[2]);	
+				message = login(messages[1], messages[2]);
 				break;
 			case "Result":
-				message="True";
+				message = "True";
 				System.out.println("FDFD");
 				sendToServer3();
 			default:
@@ -145,10 +137,10 @@ public class Server1 {
 			System.out.println("SERVER_1: recieveFromClient FAILED");
 		}
 	}
-	public void sendToServer3(){
-	
+
+	public void sendToServer3() {
+
 		try {
-			
 			byte[] m = message.getBytes();
 			InetAddress aHost = InetAddress.getByName("localhost"); // localHost
 			DatagramPacket request = new DatagramPacket(m, message.length(),
@@ -158,6 +150,7 @@ public class Server1 {
 			System.out.println("Send to server Failed!!");
 		}
 	}
+
 	public void generateCandidates() throws Exception {
 		BufferedReader in = new BufferedReader(new FileReader("candidates.txt"));
 		String line;
@@ -165,8 +158,7 @@ public class Server1 {
 			candidates.add(line);
 		}
 		in.close();
-		Database database=new Database();
+		Database database = new Database();
 		database.fillCandidates(candidates);
-		//System.out.println(database.totalNumberOfVotes(1));
 	}
 }

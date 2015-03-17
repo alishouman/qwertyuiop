@@ -14,7 +14,7 @@ public class Database {
 
    //  Database credentials
    static final String USER = "root";
-   static final String PASS = "1234567";
+   static final String PASS = "";
    Connection conn = null;
    Statement stmt = null;
    String sql;
