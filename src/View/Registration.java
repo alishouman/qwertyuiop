@@ -68,7 +68,7 @@ public class Registration extends JFrame {
 		optionsMenu.add(jmiBack = new JMenuItem("Back", 'B'));
 
 		// panel p1 to holds text fields
-		JPanel p1 = new JPanel(new GridLayout(4, 4));
+		JPanel p1 = new JPanel(new GridLayout(6, 6));
 		p1.add(new JLabel("FirstName"));
 		p1.add(jtfFirstName = new JTextField(20));
 		p1.add(new JLabel("LastName"));

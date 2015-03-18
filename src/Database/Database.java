@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Database {
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-   static final String DB_URL = "jdbc:mysql://localhost/3303server";
+   static final String DB_URL = "jdbc:mysql://localhost/server_1";
 
    //  Database credentials
    static final String USER = "root";
@@ -106,7 +106,7 @@ public class Database {
 		   } 
 		   if(!hasRegistered.equals("Null"))
 			   return false;
-	      sql = "INSERT INTO users(Username, Password, FirstName,LastName,Address, Age) VALUES ('"+username+"','"+password+"','"+FirstName+"','"+LastName+"','"+Address+"','"+age+"')";
+	      sql = "INSERT INTO users(Username, Password, FirstName, LastName, Address, Age) VALUES ('"+username+"','"+password+"','"+FirstName+"','"+LastName+"','"+Address+"','"+age+"')";
 	     stmt.executeUpdate(sql);
 registrationSuccessful=true;
 	      //STEP 5: Extract data from result set
