@@ -16,7 +16,7 @@ public class Database {
 
    //  Database credentials
    static final String USER = "root";
-   static final String PASS = "";
+   static final String PASS = "1234567";
    Connection conn = null;
    Statement stmt = null;
    String sql;
@@ -92,7 +92,7 @@ public class Database {
 	  
 	}//end main
    
-   public boolean register(String username,String password,String candidate,String age){
+   public boolean register(String username,String password,String FirstName,String LastName,String Address,String age){
 
 	   boolean registrationSuccessful=false;
 	   try{
@@ -106,7 +106,7 @@ public class Database {
 		   } 
 		   if(!hasRegistered.equals("Null"))
 			   return false;
-	      sql = "INSERT INTO users(Username, Password, Candidate, Age) VALUES ('"+username+"','"+password+"','"+candidate+"','"+age+"')";
+	      sql = "INSERT INTO users(Username, Password, FirstName,LastName,Address, Age) VALUES ('"+username+"','"+password+"','"+FirstName+"','"+LastName+"','"+Address+"','"+age+"')";
 	     stmt.executeUpdate(sql);
 registrationSuccessful=true;
 	      //STEP 5: Extract data from result set
@@ -156,8 +156,7 @@ registrationSuccessful=true;
 		   if(!hasVoted.equals("Null"))
 			   return false;
 
-	      sql = "UPDATE users SET Candidate= '"+candidate+"'"+" WHERE Username='"+username+"'";
-	     stmt.executeUpdate(sql);
+	    
 	     sql = "Select * from candidates WHERE candidate_name='"+candidate+"'";
 	     
  rs = stmt.executeQuery(sql);

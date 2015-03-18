@@ -80,13 +80,13 @@ public class Server1 {
 			return "False";
 	}
 
-	public String register(String username, String password, String candidate,
+	public String register(String username, String password, String FirstName,String LastName,String Address,
 			String age) {
 		Database database = new Database();
 
 		if (Integer.parseInt(age) < 18)
 			return "False";
-		boolean registered = database.register(username, password, candidate,
+		boolean registered = database.register(username, password, FirstName,LastName,Address,
 				age);
 		if (registered)
 			return "True";
@@ -122,7 +122,7 @@ public class Server1 {
 				break;
 			case "Register":
 				message = register(messages[1], messages[2], messages[3],
-						messages[4]);
+						messages[4],messages[5],messages[6]);
 				break;
 			case "Login":
 				message = login(messages[1], messages[2]);

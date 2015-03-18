@@ -29,7 +29,9 @@ public class Registration extends JFrame {
 	private static final long serialVersionUID = 1L;
 	JTextField jtfUsername = new JTextField(20);
 	JTextField jtfPassword = new JTextField(16);
-	JTextField jtfCandidate = new JTextField(20);
+	JTextField jtfFirstName = new JTextField(20);
+	JTextField jtfLastName = new JTextField(20);
+	JTextField jtfAddress = new JTextField(20);
 	JTextField jtfAge = new JTextField(4);
 	JButton backButton = new JButton("Back");
 	JButton registerButton = new JButton("Register");
@@ -67,12 +69,17 @@ public class Registration extends JFrame {
 
 		// panel p1 to holds text fields
 		JPanel p1 = new JPanel(new GridLayout(4, 4));
+		p1.add(new JLabel("FirstName"));
+		p1.add(jtfFirstName = new JTextField(20));
+		p1.add(new JLabel("LastName"));
+		p1.add(jtfLastName = new JTextField(20));
 		p1.add(new JLabel("Username"));
 		p1.add(jtfUsername = new JTextField(20));
 		p1.add(new JLabel("Password"));
 		p1.add(jtfPassword = new JPasswordField(16));
-		p1.add(new JLabel("Candidate"));
-		p1.add(jtfCandidate = new JTextField(20));
+		p1.add(new JLabel("Address"));
+		p1.add(jtfAddress = new JTextField(20));
+		
 		p1.add(new JLabel("Age"));
 		p1.add(jtfAge = new JTextField(4));
 
@@ -126,7 +133,9 @@ public class Registration extends JFrame {
 					send_to_server("Register"
 							+";"+jtfUsername.getText().toString()
 							+";"+jtfPassword.getText().toString()
-							+";"+jtfCandidate.getText().toString()
+							+";"+jtfFirstName.getText().toString()
+							+";"+jtfLastName.getText().toString()
+							+";"+jtfAddress.getText().toString()
 							+";"+jtfAge.getText().toString());
 					/*send_to_server("Register");
 					Register_info.add(jtfUsername.getText().toString());
