@@ -12,11 +12,11 @@ import java.util.ArrayList;
 public class Database {
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-   static final String DB_URL = "jdbc:mysql://localhost/server_1";
+   static final String DB_URL = "jdbc:mysql://localhost/Server_1";
 
    //  Database credentials
    static final String USER = "root";
-   static final String PASS = "1234567";
+   static final String PASS = "";
    Connection conn = null;
    Statement stmt = null;
    String sql;
@@ -28,7 +28,6 @@ public class Database {
 		      //STEP 3: Open a connection
 		      System.out.println("Connecting to database...");
 		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
-	
 		      //STEP 4: Execute a query
 		      System.out.println("Creating statement...");
 		      stmt = conn.createStatement();

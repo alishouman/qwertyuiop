@@ -1,0 +1,11 @@
+Votes for District 1
+candidate name: Mohamed, and has 3 Votes.
+candidate name: Ali, and has 2 Votes.
+candidate name: John, and has 3 Votes.
+candidate name: Goerge, and has 2 Votes.
+candidate name: Omar, and has 2 Votes.
+candidate name: Josh, and has 2 Votes.
+candidate name: Ibrahim, and has 3 Votes.
+candidate name: David, and has 1 Votes.
+candidate name: Micheal, and has 3 Votes.
+candidate name: Ahmed, and has 2 Votes.
