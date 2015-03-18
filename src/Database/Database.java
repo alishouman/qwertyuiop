@@ -28,7 +28,7 @@ public class Database {
 		      //STEP 3: Open a connection
 		      System.out.println("Connecting to database...");
 		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
+	
 		      //STEP 4: Execute a query
 		      System.out.println("Creating statement...");
 		      stmt = conn.createStatement();
@@ -147,16 +147,18 @@ registrationSuccessful=true;
 		   sql = "Select * from users WHERE Username='"+username+"'";
 		   
 		   ResultSet rs = stmt.executeQuery(sql);
-		   String hasVoted="Null";
+		   String hasVoted="null";
 		   while (rs.next())
 		   {
 		 hasVoted= rs.getString("Candidate");
+		 
 		    
 		   } 
-		   if(!hasVoted.equals("Null"))
+		   if(hasVoted!=null)
 			   return false;
 
-	    
+		   sql = "UPDATE users SET Candidate= '"+candidate+"'"+" WHERE Username='"+username+"'";
+		     stmt.executeUpdate(sql);
 	     sql = "Select * from candidates WHERE candidate_name='"+candidate+"'";
 	     
  rs = stmt.executeQuery(sql);
@@ -202,18 +204,21 @@ votingSuccessful=true;
 	  
 	}
    public void generateCandidates(String fileName) throws Exception {
-		BufferedReader in = new BufferedReader(new FileReader(fileName));
+	   conn = DriverManager.getConnection(DB_URL,USER,PASS);
+	      stmt = conn.createStatement();
+	   BufferedReader in = new BufferedReader(new FileReader(fileName));
 		String line;
 		ArrayList<String> candidates = new ArrayList<String>();
 		while ((line = in.readLine()) != null) {
 			candidates.add(line);
 		}
 		in.close();
-		Database database = new Database();
+		//Database database = new Database();
 		fillCandidates(candidates);
 	}
 	public boolean fillCandidates(ArrayList<String> candidates) {
-		try {
+		try {  conn = DriverManager.getConnection(DB_URL,USER,PASS);
+	      stmt = conn.createStatement();
 			for (String candidate : candidates) {
 				sql = "INSERT INTO candidates(candidate_name, number_of_votes) VALUES ('"
 						+ candidate + "','" + 0 + "')";
@@ -228,6 +233,8 @@ votingSuccessful=true;
 		ResultSet rs;
 		int result = 0;
 		try {
+			  conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		      stmt = conn.createStatement();
 			sql = "Select * from candidates WHERE candidate_name='"
 					+ Candidate_name + "'";
 				rs = stmt.executeQuery(sql);
@@ -244,6 +251,8 @@ votingSuccessful=true;
 		ArrayList<String> candidates = new ArrayList<String>();
 		ResultSet rs;
 		try {
+			  conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		      stmt = conn.createStatement();
 			sql = "Select * from candidates";
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -256,10 +265,13 @@ votingSuccessful=true;
 		return candidates;	
 		}
 	public int totalNumberOfVotes(int portNumber) {
+		
 		int sum = 0;
 		ResultSet rs;
 		ArrayList<String> candidates = new ArrayList<String>();
 		try {
+			  conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		      stmt = conn.createStatement();
 			sql = "SELECT COUNT(*) AS rowcount FROM candidates";
 			rs = stmt.executeQuery(sql);
 			rs.next();

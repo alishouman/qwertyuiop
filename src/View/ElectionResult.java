@@ -104,7 +104,7 @@ public class ElectionResult extends JFrame {
 		toolBar.add(lblWelcomeToThe);
 		pieChart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MyComponent comp= new MyComponent(values);
+				MyComponent comp= new MyComponent(values,names);
 				/*Dimension minimumSize = new Dimension(getWidth()/2, getHeight());
 				comp.setMinimumSize(minimumSize);*/
 				result.removeAll();

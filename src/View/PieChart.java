@@ -1,6 +1,8 @@
 package View;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -11,19 +13,21 @@ import javax.swing.JFrame;
 class Slice {
    double value;
    Color color;
-   public Slice(double value, Color color) {  
+   String name;
+   public Slice(double value, Color color,String name) {  
       this.value = value;
       this.color = color;
+      this.name=name;
    }
 }
 class MyComponent extends JComponent {
    Slice[] slices;
 
-   MyComponent(int[]values) {
+   MyComponent(int[]values,String[] names) {
 	   slices=new Slice[values.length];
 	   Color[] colors={Color.black,Color.green,Color.BLUE,Color.CYAN,Color.DARK_GRAY,Color.MAGENTA,Color.ORANGE,Color.YELLOW,Color.WHITE,Color.RED,Color.PINK,Color.GRAY,Color.LIGHT_GRAY};
 	   for(int i=0;i<values.length;i++){
-		   slices[i]=new Slice(values[i],colors[i]);
+		   slices[i]=new Slice(values[i],colors[i],names[i]);
 	   }
 		   
 	   
@@ -41,7 +45,11 @@ class MyComponent extends JComponent {
       for (int i = 0; i < slices.length; i++) {
          startAngle = (int) (curValue * 360 / total);
          int arcAngle = (int) (slices[i].value * 360 / total);
+         Font titleFont = new Font("SansSerif", Font.BOLD, 20);
+         FontMetrics titleFontMetrics = g.getFontMetrics(titleFont);
+         g.setFont(titleFont);
          g.setColor(slices[i].color);
+         g.drawString(slices[i].name,area.x,area.y);
          g.fillArc(area.x, area.y, area.width, area.height, 
          startAngle, arcAngle);
          curValue += slices[i].value;
