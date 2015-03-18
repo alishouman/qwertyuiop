@@ -39,12 +39,6 @@ public class test {
 		   database.vote("test_1", "Ahmed");
 		   result_2 = database.getVotesCount(1111, "Ahmed");
 		   assertEquals (result+1, result_2);
-		   
-		  /* database.vote("mohamed", "David");
-		   result = database.getVotesCount(1111, "David");
-		   System.out.println(result);
-		   assertEquals (result, 2);
-		   */
 	   }
 	   public ArrayList<String> readFile (String fileName) throws IOException
 	   {
