@@ -37,14 +37,15 @@ public class Server1 {
 			aSocket = new DatagramSocket(socket_no);
 
 			candidates = new ArrayList<String>();
+			Database database = new Database();
 			try {
-				generateCandidates();
+				database.generateCandidates("candidates.txt");
 			} catch (Exception e) {
 				System.out.println("generate Candidates failed!!");
 			}
 
 			while (true) {
-				run();
+				run();				
 			}
 		} catch (Exception e) {
 			System.out
@@ -151,14 +152,5 @@ public class Server1 {
 		}
 	}
 
-	public void generateCandidates() throws Exception {
-		BufferedReader in = new BufferedReader(new FileReader("candidates.txt"));
-		String line;
-		while ((line = in.readLine()) != null) {
-			candidates.add(line);
-		}
-		in.close();
-		Database database = new Database();
-		database.fillCandidates(candidates);
-	}
+	
 }

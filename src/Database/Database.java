@@ -1,5 +1,7 @@
 package Database;
 //STEP 1. Import required packages
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -201,7 +203,17 @@ votingSuccessful=true;
 	   return votingSuccessful;
 	  
 	}
- 
+   public void generateCandidates(String fileName) throws Exception {
+		BufferedReader in = new BufferedReader(new FileReader(fileName));
+		String line;
+		ArrayList<String> candidates = new ArrayList<String>();
+		while ((line = in.readLine()) != null) {
+			candidates.add(line);
+		}
+		in.close();
+		Database database = new Database();
+		fillCandidates(candidates);
+	}
 	public boolean fillCandidates(ArrayList<String> candidates) {
 		try {
 			for (String candidate : candidates) {
