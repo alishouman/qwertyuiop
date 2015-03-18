@@ -23,6 +23,7 @@ public class AutomationTesting {
 	public AutomationTesting ()
 	{
 		try {
+			
 			run ();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -35,6 +36,7 @@ public class AutomationTesting {
 		names = new ArrayList <String>();
 		String FileName = "UsersSimulation.txt";
 		Database_2 database  = new Database_2();
+		database.cleanDatabase();
 		database.generateCandidates("candidates_2.txt");
 		readFile(FileName);
 		for (int i=0; i<names.size();i++)

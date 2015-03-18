@@ -1,7 +1,7 @@
 Votes for District 1
-candidate name: Mohamed, and has 27 Votes with a percentage of 34.62
-candidate name: Ibrahim, and has 29 Votes with a percentage of 37.18
-candidate name: Ali, and has 22 Votes with a percentage of 28.21
+candidate name: Ali, and has 24 Votes with a percentage of 30.77
+candidate name: Ibrahim, and has 26 Votes with a percentage of 33.33
+candidate name: Mohamed, and has 28 Votes with a percentage of 35.90
 
 
-Congratulations to Ibrahim You have won this District with a percentage of 37.18
+Congratulations to Mohamed You have won this District with a percentage of 35.90

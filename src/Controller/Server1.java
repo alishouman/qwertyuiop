@@ -38,6 +38,7 @@ public class Server1 {
 
 			candidates = new ArrayList<String>();
 			Database database = new Database();
+			database.cleanDatabase();
 			try {
 				database.generateCandidates("candidates.txt");
 			} catch (Exception e) {

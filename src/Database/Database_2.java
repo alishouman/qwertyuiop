@@ -16,7 +16,7 @@ public class Database_2 {
 
    //  Database credentials
    static final String USER = "root";
-   static final String PASS = "";
+   static final String PASS = "1234567";
    Connection conn = null;
    Statement stmt = null;
    String sql;
@@ -25,18 +25,17 @@ public class Database_2 {
 	   //STEP 2: Register JDBC drive 
 	   
 	   	try {
-	   			toServer = new java.net.URL("http://localhost/3303Project/Server_test.php");
-	   			URLConnection connection = toServer.openConnection();
-	   			connection.setDoOutput(false);
+	   			
 	   			Class.forName("com.mysql.jdbc.Driver");
 
 		      //STEP 3: Open a connection
 		      System.out.println("Connecting to database...");
 		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
-	
+		    
 		      //STEP 4: Execute a query
 		     // System.out.println("Creating statement...");
 		      stmt = conn.createStatement();
+		     
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -296,5 +295,17 @@ votingSuccessful=true;
 			e.printStackTrace();
 		}
 		return sum;
+	}
+	public void cleanDatabase(){
+		try {
+			  conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		      stmt = conn.createStatement();
+		      sql= "DELETE FROM candidates WHERE 1";
+		      stmt.executeUpdate(sql);
+		      sql= "DELETE FROM users WHERE 1";
+		      stmt.executeUpdate(sql);}
+		catch (SQLException e){
+			
+		}
 	}
 }// end FirstExample
