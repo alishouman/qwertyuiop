@@ -13,7 +13,48 @@ import Database.*;
 import Controller.*;
 
 public class test {	
-	  
+	@Test
+    public void testVote() {
+	    Server1 myUnit = new Server1();
+        String result = myUnit.vote("peter1234", "David");
+        assertEquals("True", result);
+   }
+   
+   @Test
+    public void testVote3() {
+	    Server1 myUnit = new Server1();
+        String result = myUnit.vote("peter1234", "Josh");
+        assertEquals("True", result);
+   }
+   
+   
+   @Test
+    public void testVote2() {
+	    Server1 myUnit = new Server1();
+        String result = myUnit.vote("peter12", "David");
+        assertEquals("False", result);
+   }
+   
+   @Test
+   public void testLogin() {
+        Server1 myUnit = new Server1();
+        String result = myUnit.login("peter1234", "12345");
+        assertEquals("True", result);
+   }
+   
+   @Test
+   public void testLogin2() {
+        Server1 myUnit = new Server1();
+        String result = myUnit.login("peter12", "12345");
+        assertEquals("False", result);
+   }
+   
+  @Test
+   public void testRegister() {
+        Server1 myUnit = new Server1();
+        String result = myUnit.register("peter1", "12345","David","30");
+        assertEquals("False", result);
+   }
 	   @Test
 	   public void test_fillCandidates () throws Exception
 	   {
