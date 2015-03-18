@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+import java.net.*;
 public class Database_2 {
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
@@ -20,17 +20,22 @@ public class Database_2 {
    Connection conn = null;
    Statement stmt = null;
    String sql;
+   private java.net.URL toServer;
    public Database_2(){
-	   //STEP 2: Register JDBC drive   
+	   //STEP 2: Register JDBC drive 
+	   
 	   	try {
-			Class.forName("com.mysql.jdbc.Driver");
+	   			toServer = new java.net.URL("http://localhost/3303Project/Server_test.php");
+	   			URLConnection connection = toServer.openConnection();
+	   			connection.setDoOutput(false);
+	   			Class.forName("com.mysql.jdbc.Driver");
 
 		      //STEP 3: Open a connection
 		      System.out.println("Connecting to database...");
 		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
 	
 		      //STEP 4: Execute a query
-		      System.out.println("Creating statement...");
+		     // System.out.println("Creating statement...");
 		      stmt = conn.createStatement();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -213,11 +218,13 @@ votingSuccessful=true;
 	   BufferedReader in = new BufferedReader(new FileReader(fileName));
 		String line;
 		ArrayList<String> candidates = new ArrayList<String>();
-		while ((line = in.readLine()) != null) {
-			candidates.add(line);
+		for (int i=0; i<10;i++){
+			while ((line = in.readLine()) != null) {
+				candidates.add(line);
+			}
+			in = new BufferedReader(new FileReader(fileName));
 		}
 		in.close();
-		//Database database = new Database();
 		fillCandidates(candidates);
 	}
 	public boolean fillCandidates(ArrayList<String> candidates) {
