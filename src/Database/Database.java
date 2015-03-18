@@ -96,7 +96,16 @@ public class Database {
 
 	   boolean registrationSuccessful=false;
 	   try{
-	  
+		   sql = "Select * from users WHERE Username='"+username+"'";
+		   ResultSet rs = stmt.executeQuery(sql);
+		   String hasRegistered="Null";
+		   while (rs.next())
+		   {
+		 hasRegistered= rs.getString("password");
+		    
+		   } 
+		   if(!hasRegistered.equals("Null"))
+			   return false;
 	      sql = "INSERT INTO users(Username, Password, Candidate, Age) VALUES ('"+username+"','"+password+"','"+candidate+"','"+age+"')";
 	     stmt.executeUpdate(sql);
 registrationSuccessful=true;
@@ -134,29 +143,19 @@ registrationSuccessful=true;
 
 	   boolean votingSuccessful=false;
 	   try{
-		     sql = "Select * from users WHERE Username='"+username+"'";
-		     String haveVoted=" ";
-		     ResultSet rs = stmt.executeQuery(sql);
-		     while (rs.next())
-		     {
-		      haveVoted = rs.getString("Candidate");
-		       
-		     } 
-		     if(!haveVoted.equals("Null")){
-		    	 sql = "Select * from candidates WHERE candidate_name='"+haveVoted+"'";
-			     
-		    	 rs = stmt.executeQuery(sql);
-		    	int number_of_votes = 0;
-		    	while (rs.next())
-		    	{
-		    	 number_of_votes = rs.getInt("number_of_votes");
-		    	  
-		    	}
-		    	number_of_votes--;
-		    	sql = "UPDATE candidates SET number_of_votes="+number_of_votes+" WHERE candidate_name='"+haveVoted+"'";
-		    	stmt.executeUpdate(sql);
-		     }
-		    	 
+
+		   sql = "Select * from users WHERE Username='"+username+"'";
+		   
+		   ResultSet rs = stmt.executeQuery(sql);
+		   String hasVoted="Null";
+		   while (rs.next())
+		   {
+		 hasVoted= rs.getString("Candidate");
+		    
+		   } 
+		   if(!hasVoted.equals("Null"))
+			   return false;
+
 	      sql = "UPDATE users SET Candidate= '"+candidate+"'"+" WHERE Username='"+username+"'";
 	     stmt.executeUpdate(sql);
 	     sql = "Select * from candidates WHERE candidate_name='"+candidate+"'";
