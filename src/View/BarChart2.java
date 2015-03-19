@@ -87,32 +87,6 @@ public class BarChart2 extends JPanel {
       g.drawString(names[i], x, y);
     }
   }
- /* public static void main(String[] argv) {
-	    JFrame f = new JFrame();
-	    f.setSize(400, 300);
-	    double[] values = new double[5];
-	    String[] names = new String[5];
-	    values[0] = 1;
-	    names[0] = "Item 1";
-	 
-	    values[1] = 2;
-	    names[1] = "Item 2";
-	 
-	    values[2] = 4;
-	    names[2] = "Item 3";
-	    values[3] = 4;
-	    names[3] = "Item 3";
-	    values[4] = 4;
-	    names[4] = "Item 3";
-	    f.getContentPane().add(new BarChart2(values, names, "title"));
-	 
-	    WindowListener wndCloser = new WindowAdapter() {
-	      public void windowClosing(WindowEvent e) {
-	        System.exit(0);
-	      }
-	    };
-	    f.addWindowListener(wndCloser);
-	    f.setVisible(true);
-	  }*/
+
 }
   

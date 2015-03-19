@@ -35,7 +35,7 @@ public class Registration extends JFrame {
 	JTextField jtfAge = new JTextField(4);
 	JButton backButton = new JButton("Back");
 	JButton registerButton = new JButton("Register");
-	JMenuItem jmiLogin, jmiBack, jmiHelp, jmiAbout;
+	JMenuItem jmiHelp, jmiAbout;
 	JLabel status = new JLabel("Status:Not Registered");
 	private final int portNumber = 1111;
 	private DatagramSocket aSocket = null;
@@ -62,10 +62,7 @@ public class Registration extends JFrame {
 		helpMenu.add(jmiAbout = new JMenuItem("About", 'A'));
 		jmb.add(helpMenu);
 
-		// add menu items with mnemonics to menu "options"
-		optionsMenu.add(jmiLogin = new JMenuItem("Login", 'L'));
-		optionsMenu.addSeparator();
-		optionsMenu.add(jmiBack = new JMenuItem("Back", 'B'));
+	
 
 		// panel p1 to holds text fields
 		JPanel p1 = new JPanel(new GridLayout(6, 6));
@@ -165,13 +162,6 @@ public class Registration extends JFrame {
 			}
 		});
 
-		jmiLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				Registration.this.dispose();
-				Registration.this.setVisible(false);
-			}
-		});
 	}
 
 	public static void main(String arg[]) {

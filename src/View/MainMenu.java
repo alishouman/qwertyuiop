@@ -28,7 +28,7 @@ public class MainMenu extends JFrame {
 	JButton loginButton = new JButton("Login");
 	JButton registerButton = new JButton("Register");
 	JButton testButton = new JButton("Test");
-	JMenuItem jmiLogin, jmiBack, jmiHelp, jmiAbout;
+	JMenuItem jmiHelp, jmiAbout;
 
 	MainMenu() {
 
@@ -49,11 +49,7 @@ public class MainMenu extends JFrame {
 		helpMenu.add(jmiAbout = new JMenuItem("About", 'A'));
 		jmb.add(helpMenu);
 
-		// add menu items with mnemonics to menu "options"
-		optionsMenu.add(jmiLogin = new JMenuItem("Login", 'L'));
-		optionsMenu.addSeparator();
-		optionsMenu.add(jmiBack = new JMenuItem("Back", 'B'));
-
+	
 		// panel p1 to holds text fields
 
 		// panel p2 to holds buttons
@@ -120,13 +116,7 @@ public class MainMenu extends JFrame {
 
 			}
 		});
-		jmiLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				MainMenu.this.dispose();
-				MainMenu.this.setVisible(false);
-			}
-		});
+	
 	}
 
 	public static void main(String arg[]) {

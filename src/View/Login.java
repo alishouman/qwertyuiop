@@ -35,7 +35,7 @@ public class Login extends JFrame {
 	JComboBox districts;
 	JButton backButton = new JButton("Back");
 	JButton loginButton = new JButton("Login");
-	JMenuItem jmiLogin, jmiBack, jmiHelp, jmiAbout;
+	JMenuItem jmiHelp, jmiAbout;
 	JLabel status = new JLabel("Status:Not logged in");
 	private final int portNumber = 1111;
 	private DatagramSocket aSocket = null;
@@ -62,10 +62,7 @@ public class Login extends JFrame {
 		helpMenu.add(jmiAbout = new JMenuItem("About", 'A'));
 		jmb.add(helpMenu);
 
-		// add menu items with mnemonics to menu "options"
-		optionsMenu.add(jmiLogin = new JMenuItem("Login", 'L'));
-		optionsMenu.addSeparator();
-		optionsMenu.add(jmiBack = new JMenuItem("Back", 'B'));
+
 
 		// panel p1 to holds text fields
 		JPanel p1 = new JPanel(new GridLayout(3, 3));
@@ -95,14 +92,7 @@ public class Login extends JFrame {
 		setTitle("Login Page");
 		pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// listners for exit menuitem and button
-		jmiBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				Login.this.dispose();
-				Login.this.setVisible(false);
-			}
-		});
+	
 
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -162,12 +152,7 @@ public class Login extends JFrame {
 			}
 		});
 
-		jmiLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Login.this.dispose();
-				Login.this.setVisible(false);
-			}
-		});
+	
 	}
 
 	public static void main(String arg[]) {

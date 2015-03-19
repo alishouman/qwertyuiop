@@ -27,7 +27,7 @@ public class Vote extends JFrame {
 	JButton backButton = new JButton("Back");
 	JButton voteButton = new JButton("Vote");
 	JButton resultButton = new JButton("View Results");
-	JMenuItem jmiLogin, jmiBack, jmiHelp, jmiAbout;
+	JMenuItem jmiHelp, jmiAbout;
 	JLabel status = new JLabel("Status:Not Registered");
 	private final int portNumber = 1111;
 	private DatagramSocket aSocket = null;
@@ -58,10 +58,7 @@ public class Vote extends JFrame {
 		helpMenu.add(jmiAbout = new JMenuItem("About", 'A'));
 		jmb.add(helpMenu);
 
-		// add menu items with mnemonics to menu "options"
-		optionsMenu.add(jmiLogin = new JMenuItem("Login", 'L'));
-		optionsMenu.addSeparator();
-		optionsMenu.add(jmiBack = new JMenuItem("Back", 'B'));
+	
 
 		// panel p1 to holds text fields
 		JPanel p1 = new JPanel(new GridLayout(1, 1));
@@ -159,13 +156,7 @@ public class Vote extends JFrame {
 			}
 		});
 
-		jmiLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				Vote.this.dispose();
-				Vote.this.setVisible(false);
-			}
-		});
+	
 	}
 
 	public void send_to_server(String message) {
