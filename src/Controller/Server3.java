@@ -48,7 +48,7 @@ public class Server3 {
 			result.setSize(1000, 1000);
 			result.setLocationRelativeTo(null);
 			result.setVisible(true);
-			result.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//result.setDefaultCloseOperation(JFrame.);
 		}
 	}
 
