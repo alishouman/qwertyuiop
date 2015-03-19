@@ -79,7 +79,7 @@ public class Registration extends JFrame {
 		p1.add(jtfPassword = new JPasswordField(16));
 		p1.add(new JLabel("Address"));
 		p1.add(jtfAddress = new JTextField(20));
-		
+
 		p1.add(new JLabel("Age"));
 		p1.add(jtfAge = new JTextField(4));
 
@@ -99,21 +99,19 @@ public class Registration extends JFrame {
 		panel.add(p2, BorderLayout.SOUTH);
 		panel.add(p3, BorderLayout.CENTER);
 		add(panel, BorderLayout.CENTER);
-		setTitle("Main Page");
-
-		// listners for exit menuitem and button
-		/*
-		 * jmiBack.addActionListener(new ActionListener() { public void
-		 * actionPerformed(ActionEvent e) {
-		 * 
-		 * Login.this.dispose(); Login.this.setVisible(false); } });
-		 */
+		setTitle("Registration Page");
+		pack();
 
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				Registration.this.dispose();
 				Registration.this.setVisible(false);
+				MainMenu main = new MainMenu();
+				main.pack();
+				main.setLocationRelativeTo(null);
+				main.setVisible(true);
+				main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}
 		});
 
@@ -130,59 +128,40 @@ public class Registration extends JFrame {
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					send_to_server("Register"
-							+";"+jtfUsername.getText().toString()
-							+";"+jtfPassword.getText().toString()
-							+";"+jtfFirstName.getText().toString()
-							+";"+jtfLastName.getText().toString()
-							+";"+jtfAddress.getText().toString()
-							+";"+jtfAge.getText().toString());
-					/*send_to_server("Register");
-					Register_info.add(jtfUsername.getText().toString());
-					Register_info.add(jtfPassword.getText().toString());
-					Register_info.add(jtfCandidate.getText().toString());
-					Register_info.add(jtfAge.getText().toString());
-					for (int i = 0; i < Register_info.size(); i++) {
-						send_to_server(Register_info.get(i));
-					}*/
+					send_to_server("Register" + ";"
+							+ jtfUsername.getText().toString() + ";"
+							+ jtfPassword.getText().toString() + ";"
+							+ jtfFirstName.getText().toString() + ";"
+							+ jtfLastName.getText().toString() + ";"
+							+ jtfAddress.getText().toString() + ";"
+							+ jtfAge.getText().toString());
 					if (!receiveServer_1()) {
 						status.setText("Status:Not Registered");
-						JOptionPane.showMessageDialog(null,
-								"Sorry, wrong credentials");
+						JOptionPane
+								.showMessageDialog(null,
+										"You must be 18+ inorder to Register to our system! Thanks..");
 						return;
 					} else {
 						status.setText("Status:Registered");
-						MainMenu menu=new MainMenu();
+						MainMenu menu = new MainMenu();
 						dispose();
 						setVisible(false);
-						menu.setSize(500, 500);
-			               menu.setLocationRelativeTo(null);
-			               menu.setVisible(true);
+						JOptionPane
+						.showMessageDialog(null,
+								"You have successufly registered into our system, thanks...");
+						menu.pack();
+						menu.setLocationRelativeTo(null);
+						menu.setVisible(true);
+						menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					}
 				} catch (Exception se) {
 					se.printStackTrace();
-					JOptionPane.showMessageDialog(null,
-								"Sorry, couldn't check your credentials. Check the logs and report the problem to an administrator.");
+					JOptionPane
+							.showMessageDialog(
+									null,
+									"Sorry, couldn't check your credentials. Check the logs and report the problem to an administrator.");
 					return;
 				}
-
-				/*
-				 * Database database=new Database(); try { boolean registered =
-				 * database.register(jtfUsername.getText(),
-				 * jtfPassword.getText()
-				 * ,jtfDistrict.getText(),jtfAge.getText()); if (!registered) {
-				 * //JOptionPane.showMessageDialog(null,
-				 * "Sorry, wrong credentials");
-				 * status.setText("Status:Not Registered");
-				 * JOptionPane.showMessageDialog
-				 * (null,"Sorry, wrong credentials"); return; } else{
-				 * status.setText("Status:Registered");
-				 * 
-				 * } } catch (Exception se) { se.printStackTrace();
-				 * JOptionPane.showMessageDialog(null,
-				 * "Sorry, couldn't check your credentials. Check the logs and report the problem to an administrator."
-				 * ); return; }
-				 */
 			}
 		});
 
@@ -197,9 +176,10 @@ public class Registration extends JFrame {
 
 	public static void main(String arg[]) {
 		Registration frame = new Registration();
-		frame.setSize(500, 500);
+		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	public void send_to_server(String message) {
@@ -220,8 +200,6 @@ public class Registration extends JFrame {
 			byte[] buffer = new byte[6];// aSocket.getReceiveBufferSize()
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			aSocket.receive(reply);
-			System.out.println("UDPClient1, Reply: "
-					+ new String(reply.getData()).trim());
 			if ((new String(reply.getData()).trim().equals("True")))
 				return true;
 			else

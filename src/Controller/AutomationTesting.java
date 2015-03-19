@@ -37,7 +37,7 @@ public class AutomationTesting {
 		String FileName = "UsersSimulation.txt";
 		Database_2 database  = new Database_2();
 		database.cleanDatabase();
-		database.generateCandidates("candidates_2.txt");
+		database.generateCandidates("candidates.txt");
 		readFile(FileName);
 		for (int i=0; i<names.size();i++)
 		{
@@ -77,7 +77,7 @@ public class AutomationTesting {
 		Database_2 database = new Database_2();
 		try {
 			out = new PrintWriter(new FileWriter(fileName));
-			out.println("Votes for District 1");
+			out.println("Votes for District 1:\n");
 			for (String candidate : candidates) {
 				vote = database.getVotesCount(1111, candidate);
 				allVotes = database.totalNumberOfVotes(1111) ;

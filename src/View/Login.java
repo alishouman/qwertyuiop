@@ -92,8 +92,9 @@ public class Login extends JFrame {
 		panel.add(p2, BorderLayout.SOUTH);
 		panel.add(p3, BorderLayout.CENTER);
 		add(panel, BorderLayout.CENTER);
-		setTitle("Main Page");
-
+		setTitle("Login Page");
+		pack();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// listners for exit menuitem and button
 		jmiBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -105,9 +106,13 @@ public class Login extends JFrame {
 
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				Login.this.dispose();
 				Login.this.setVisible(false);
+				MainMenu main = new MainMenu();
+				main.pack();
+				main.setLocationRelativeTo(null);
+				main.setVisible(true);
+				main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}
 		});
 
@@ -136,10 +141,12 @@ public class Login extends JFrame {
 						status.setText("Status:Logged in");
 						Login.this.dispose();
 						Login.this.setVisible(false);
-						Database database=new Database();
-						ArrayList<String>candidates=database.getCandidates(1111);
-						Vote vote = new Vote(jtfUsername.getText().toString(),candidates);
-						vote.setSize(500, 500);
+						Database database = new Database();
+						ArrayList<String> candidates = database
+								.getCandidates(1111);
+						Vote vote = new Vote(jtfUsername.getText().toString(),
+								candidates);
+						vote.pack();
 						vote.setLocationRelativeTo(null);
 						vote.setVisible(true);
 					}
@@ -148,36 +155,15 @@ public class Login extends JFrame {
 					JOptionPane
 							.showMessageDialog(
 									null,
-									"Sorry, couldn't check your credentials. Check the logs and report the problem to an administrator.");
+									"Sorry, couldn't check your credentials. "
+											+ "Check the logs and report the problem to an administrator.");
 					return;
 				}
-
-				/*
-				 * Database database=new Database(); try { boolean loggedIn =
-				 * database.checkLogin(jtfUsername.getText(),
-				 * jtfPassword.getText()); if (!loggedIn) {
-				 * //JOptionPane.showMessageDialog(null,
-				 * "Sorry, wrong credentials");
-				 * status.setText("Status:Password or Username is incorrect");
-				 * JOptionPane
-				 * .showMessageDialog(null,"Sorry, wrong credentials"); return;
-				 * } else{ status.setText("Status:Logged in");
-				 * Login.this.dispose(); Login.this.setVisible(false);
-				 * 
-				 * Vote vote= new Vote(); vote.setSize(500, 500);
-				 * vote.setLocationRelativeTo(null); vote.setVisible(true);
-				 * 
-				 * } } catch (Exception se) { se.printStackTrace();
-				 * JOptionPane.showMessageDialog(null,
-				 * "Sorry, couldn't check your credentials. Check the logs and report the problem to an administrator."
-				 * ); return; } }
-				 */
 			}
 		});
 
 		jmiLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				Login.this.dispose();
 				Login.this.setVisible(false);
 			}
@@ -186,9 +172,10 @@ public class Login extends JFrame {
 
 	public static void main(String arg[]) {
 		Login frame = new Login();
-		frame.setSize(500, 500);
+		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	public void send_to_server(String message) {
@@ -209,8 +196,6 @@ public class Login extends JFrame {
 			byte[] buffer = new byte[4];// aSocket.getReceiveBufferSize()
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			aSocket.receive(reply);
-			System.out.println("UDPClient1, Reply: "
-					+ new String(reply.getData()).trim());
 			if ((new String(reply.getData()).equals("True")))
 				return true;
 			else

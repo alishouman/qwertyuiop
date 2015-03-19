@@ -49,8 +49,7 @@ public class Server1 {
 				run();				
 			}
 		} catch (Exception e) {
-			System.out
-					.println("couldnt connect to socket number: " + socket_no);
+			System.out.println("couldnt connect to socket number: " + socket_no);
 		}
 	}
 
@@ -113,7 +112,7 @@ public class Server1 {
 			aSocket.receive(request_FromClient);
 
 			setMessage(new String(request_FromClient.getData()));
-			System.out.println(message);
+			//System.out.println(message);
 			String messages[] = message.split(";");
 
 			switch (messages[0]) {
@@ -129,8 +128,12 @@ public class Server1 {
 				message = login(messages[1], messages[2]);
 				break;
 			case "Result":
-				message = "True";
-				System.out.println("FDFD");
+				Database database = new Database();
+				int total = database.totalNumberOfVotes(1111);
+				if (total == 0) message = "false";
+				else {
+					message = "True";
+				}
 				sendToServer3();
 			default:
 				break;

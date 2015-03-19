@@ -1,7 +1,15 @@
-Votes for District 1
-candidate name: Ali, and has 24 Votes with a percentage of 30.77
-candidate name: Ibrahim, and has 26 Votes with a percentage of 33.33
-candidate name: Mohamed, and has 28 Votes with a percentage of 35.90
+Votes for District 1:
+
+candidate name: Mohamed, and has 6 Votes with a percentage of 7.69
+candidate name: Ali, and has 8 Votes with a percentage of 10.26
+candidate name: John, and has 9 Votes with a percentage of 11.54
+candidate name: Goerge, and has 10 Votes with a percentage of 12.82
+candidate name: Omar, and has 6 Votes with a percentage of 7.69
+candidate name: Josh, and has 11 Votes with a percentage of 14.10
+candidate name: Ibrahim, and has 6 Votes with a percentage of 7.69
+candidate name: David, and has 10 Votes with a percentage of 12.82
+candidate name: Micheal, and has 5 Votes with a percentage of 6.41
+candidate name: Ahmed, and has 7 Votes with a percentage of 8.97
 
 
-Congratulations to Mohamed You have won this District with a percentage of 35.90
+Congratulations to Josh You have won this District with a percentage of 14.10

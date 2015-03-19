@@ -95,7 +95,6 @@ public class ElectionResult extends JFrame {
 		splitPane.add(pieChart,BorderLayout.EAST);
 		splitPane.add(barChart,BorderLayout.WEST);
 		getContentPane().add(splitPane,BorderLayout.EAST);
-		
 		JToolBar toolBar = new JToolBar();
 		getContentPane().add(toolBar, BorderLayout.NORTH);
 		getContentPane().add(result, BorderLayout.CENTER);

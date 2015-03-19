@@ -5,6 +5,8 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import Database.Database;
 import View.ElectionResult;
 
@@ -19,6 +21,7 @@ public class Server3 {
 	public Server3() {
 		try {
 			aSocket = new DatagramSocket(portNumber);
+			System.out.println("Server_3, Usage: java UDPServer <" + portNumber+ ">");
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,15 +40,15 @@ public class Server3 {
 			int[] values = new int[candidates.size()];
 			for (int i = 0; i < candidates.size(); i++) {
 				values[i] = database.getVotesCount(1111, candidates.get(i));
-				System.out.println("Value is " + values[i]);
 			}
 			String[] names = new String[candidates.size()];
 			for (int i = 0; i < candidates.size(); i++)
 				names[i] = candidates.get(i);
 			result = new ElectionResult(values, names);
-			result.setSize(500, 500);
+			result.setSize(1000, 1000);
 			result.setLocationRelativeTo(null);
 			result.setVisible(true);
+			result.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 	}
 
@@ -55,8 +58,6 @@ public class Server3 {
 			byte[] buffer = new byte[6];// aSocket.getReceiveBufferSize()
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			aSocket.receive(reply);
-			System.out.println("UDPClient1, Reply: "
-					+ new String(reply.getData()).trim());
 			if ((new String(reply.getData()).trim().equals("True")))
 				return true;
 			else

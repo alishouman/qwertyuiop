@@ -6,10 +6,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
-
-
-
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -21,173 +17,158 @@ import Database.Database;
 
 public class Vote extends JFrame {
 
-
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-  
-    JComboBox candidates;
-    String username;
-    JButton backButton = new JButton("Back");
-    JButton registerButton = new JButton("Register");
-    JButton resultButton = new JButton("View Results");
-    JMenuItem jmiLogin, jmiBack, jmiHelp, jmiAbout;
-    JLabel status = new JLabel("Status:Not Registered");
+
+	JComboBox candidates;
+	String username;
+	JButton backButton = new JButton("Back");
+	JButton voteButton = new JButton("Vote");
+	JButton resultButton = new JButton("View Results");
+	JMenuItem jmiLogin, jmiBack, jmiHelp, jmiAbout;
+	JLabel status = new JLabel("Status:Not Registered");
 	private final int portNumber = 1111;
 	private DatagramSocket aSocket = null;
 	private ArrayList<String> Register_info;
 
-   Vote( String username1, ArrayList<String> candidates2) {
-	   this.username=username1;
-	   String[] candidateNames =new String[candidates2.size()];
-	   for(int i=0;i<candidates2.size();i++)
-		   candidateNames[i]=candidates2.get(i);
-		   
-	  
-	   this.candidates =new JComboBox(candidateNames);
-	  
-        //create menu bar
-        JMenuBar jmb = new JMenuBar();
+	Vote(String username1, ArrayList<String> candidates2) {
+		this.username = username1;
+		String[] candidateNames = new String[candidates2.size()];
+		for (int i = 0; i < candidates2.size(); i++)
+			candidateNames[i] = candidates2.get(i);
 
-        //set menu bar to the applet
-        setJMenuBar(jmb);
+		this.candidates = new JComboBox(candidateNames);
 
-        //add menu "operation" to menu bar
-        JMenu optionsMenu = new JMenu("Options");
-        optionsMenu.setMnemonic('O');
-        jmb.add(optionsMenu);
+		// create menu bar
+		JMenuBar jmb = new JMenuBar();
 
-        //add menu "help"
-        JMenu helpMenu = new JMenu("Help");
-        helpMenu.setMnemonic('H');
-        helpMenu.add(jmiAbout = new JMenuItem("About", 'A'));
-        jmb.add(helpMenu);
+		// set menu bar to the applet
+		setJMenuBar(jmb);
 
-        //add menu items with mnemonics to menu "options"
-        optionsMenu.add(jmiLogin = new JMenuItem("Login", 'L'));
-        optionsMenu.addSeparator();
-        optionsMenu.add(jmiBack = new JMenuItem("Back", 'B'));
+		// add menu "operation" to menu bar
+		JMenu optionsMenu = new JMenu("Options");
+		optionsMenu.setMnemonic('O');
+		jmb.add(optionsMenu);
 
-        //panel p1 to holds text fields
-        JPanel p1 = new JPanel(new GridLayout(1, 1));
-        p1.add(new JLabel("Choose your candidate "));
-        p1.add(candidates);
+		// add menu "help"
+		JMenu helpMenu = new JMenu("Help");
+		helpMenu.setMnemonic('H');
+		helpMenu.add(jmiAbout = new JMenuItem("About", 'A'));
+		jmb.add(helpMenu);
 
-        //panel p2 to holds buttons
-        JPanel p2 = new JPanel(new FlowLayout());
-        p2.add(backButton = new JButton("Back"));
-        p2.add(registerButton = new JButton("Vote"));
-        p2.add(resultButton = new JButton("View Results"));
+		// add menu items with mnemonics to menu "options"
+		optionsMenu.add(jmiLogin = new JMenuItem("Login", 'L'));
+		optionsMenu.addSeparator();
+		optionsMenu.add(jmiBack = new JMenuItem("Back", 'B'));
 
-        JPanel p3 = new JPanel(new FlowLayout());
-        p3.add(status = new JLabel("Status:Havent Voted"));
+		// panel p1 to holds text fields
+		JPanel p1 = new JPanel(new GridLayout(1, 1));
+		p1.add(new JLabel("Choose your candidate "));
+		p1.add(candidates);
 
-        //Panel with image??????
+		// panel p2 to holds buttons
+		JPanel p2 = new JPanel(new FlowLayout());
+		p2.add(backButton = new JButton("Back"));
+		p2.add(voteButton = new JButton("Vote"));
+		p2.add(resultButton = new JButton("View Results"));
 
-        //add panels to frame
-        JPanel panel = new JPanel(new GridLayout(3, 1));
-        panel.add(p1, BorderLayout.CENTER);
-        panel.add(p2, BorderLayout.SOUTH);
-        panel.add(p3, BorderLayout.CENTER);
-        add(panel, BorderLayout.CENTER);
-        setTitle("Main Page");
+		JPanel p3 = new JPanel(new FlowLayout());
+		p3.add(status = new JLabel("Status:Havent Voted"));
 
+		// Panel with image??????
 
-        //listners for exit menuitem and button
-      /*  jmiBack.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-        
-                Login.this.dispose();
-                Login.this.setVisible(false);
-            }
-        });*/
+		// add panels to frame
+		JPanel panel = new JPanel(new GridLayout(3, 1));
+		panel.add(p1, BorderLayout.CENTER);
+		panel.add(p2, BorderLayout.SOUTH);
+		panel.add(p3, BorderLayout.CENTER);
+		add(panel, BorderLayout.CENTER);
+		setTitle("Vote Page");
+		pack();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-             
-                Vote.this.dispose();
-                Vote.this.setVisible(false);
-            }
-        });
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-        //listner for about menuitem
-        jmiAbout.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,
-                        "This is the voting panel"
-                        + "\n Assignment for University",
-                        "About", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
-        resultButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	
-            	
-               try {
-            	   send_to_server("Result");            
-               	
-                   if (!receiveServer_1()) {
-                        //JOptionPane.showMessageDialog(null, "Sorry, wrong credentials");
-                      
-                        JOptionPane.showMessageDialog(null,"Sorry, wrong credentials");
-                        return;
-                    }
-                  
-                } catch (Exception se) {
-                    se.printStackTrace();
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry, couldn't check your credentials. Check the logs and report the problem to an administrator.");
-                    return;
-                }
-                
+				Vote.this.dispose();
+				Vote.this.setVisible(false);
+				Login login = new Login();
+				login.pack();
+				login.setLocationRelativeTo(null);
+				login.setVisible(true);
+				login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			}
+		});
 
+		// listner for about menuitem
+		jmiAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "This is the voting panel"
+						+ "\n Assignment for University", "About",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		
+		resultButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-            }
-        });
-        //action listeners for Login in button and menu item
-        registerButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	
-            	
-               try {
-            	   send_to_server("Vote"
-   						+";"+username
-   						+";"+candidates.getSelectedItem().toString());
-              
-               	
-                   if (!receiveServer_1()) {
-                        //JOptionPane.showMessageDialog(null, "Sorry, wrong credentials");
-                        status.setText("Status:Havent Voted");
-                        JOptionPane.showMessageDialog(null,"Sorry, wrong credentials");
-                        return;
-                    }
-                   else{
-                	   status.setText("Status:Voted");
-                     
-                   }
-                } catch (Exception se) {
-                    se.printStackTrace();
-                    JOptionPane.showMessageDialog(null,
-                            "Sorry, couldn't check your credentials. Check the logs and report the problem to an administrator.");
-                    return;
-                }
-                
+				try {
+					send_to_server("Result");
 
+					if (!receiveServer_1()) {
+						JOptionPane.showMessageDialog(null,
+								"Sorry, No body placed a vote yet!\n"+"Be the first one to vote...");
+						return;
+					}
 
-            }
-        });
+				} catch (Exception se) {
+					se.printStackTrace();
+					JOptionPane.showMessageDialog(null,
+							"Sorry, couldn't check your credentials. "
+							+ "Check the logs and report the problem to an administrator.");
+					return;
+				}
+			}
+		});
+		// action listeners for Login in button and menu item
+		voteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-        jmiLogin.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-       
-                Vote.this.dispose();
-                Vote.this.setVisible(false);
-            }
-        });
-    }
-   public void send_to_server(String message) {
+				try {
+					send_to_server("Vote" + ";" + username + ";"
+							+ candidates.getSelectedItem().toString());
+					if (!receiveServer_1()) {
+						// JOptionPane.showMessageDialog(null,
+						// "Sorry, wrong credentials");
+						status.setText("Status:Havent Voted");
+						JOptionPane.showMessageDialog(null,
+								"Sorry, You have already placed you vote...");
+						return;
+					} else {
+						status.setText("Status:Voted");
+					}
+				} catch (Exception se) {
+					se.printStackTrace();
+					JOptionPane.showMessageDialog(null,
+					"Sorry, couldn't check your credentials. "
+					+ "Check the logs and report the problem to an administrator.");
+					return;
+				}
+			}
+		});
+
+		jmiLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				Vote.this.dispose();
+				Vote.this.setVisible(false);
+			}
+		});
+	}
+
+	public void send_to_server(String message) {
 		try {
 			aSocket = new DatagramSocket();
 			byte[] m = message.getBytes();
@@ -205,8 +186,6 @@ public class Vote extends JFrame {
 			byte[] buffer = new byte[6];// aSocket.getReceiveBufferSize()
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			aSocket.receive(reply);
-			System.out.println("UDPClient1, Reply: "
-					+ new String(reply.getData()).trim());
 			if ((new String(reply.getData()).trim().equals("True")))
 				return true;
 			else
@@ -217,7 +196,5 @@ public class Vote extends JFrame {
 
 		}
 	}
-   
+
 }
-
-

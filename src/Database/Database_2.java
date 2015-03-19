@@ -29,7 +29,7 @@ public class Database_2 {
 	   			Class.forName("com.mysql.jdbc.Driver");
 
 		      //STEP 3: Open a connection
-		      System.out.println("Connecting to database...");
+		     // System.out.println("Connecting to database...");
 		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
 		    
 		      //STEP 4: Execute a query
@@ -57,15 +57,15 @@ public class Database_2 {
 	         //Retrieve by column name
 	        String id  = rs.getString("Username");
 	         String pass = rs.getString("Password");
-	         System.out.print("ID: " + id);
-	         System.out.print(", Password: " + pass);
+	        // System.out.print("ID: " + id);
+	         //System.out.print(", Password: " + pass);
 	         if(id.equals(username)&&pass.equals(password))
 	        	 loginSuccessful=true;
 	      
 
 	         //Display values
-	         System.out.print("ID: " + username);
-	         System.out.print(", Password: " + password);
+	      //   System.out.print("ID: " + username);
+	        // System.out.print(", Password: " + password);
 	         
 	      }
 	      
