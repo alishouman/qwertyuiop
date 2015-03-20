@@ -136,7 +136,7 @@ public class Registration extends JFrame {
 						status.setText("Status:Not Registered");
 						JOptionPane
 								.showMessageDialog(null,
-										"You must be 18+ inorder to Register to our system! Thanks..");
+										"Registsration failed ! Please try again.");
 						return;
 					} else {
 						status.setText("Status:Registered");
