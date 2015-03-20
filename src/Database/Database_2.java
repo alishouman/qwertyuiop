@@ -227,8 +227,9 @@ votingSuccessful=true;
 		fillCandidates(candidates);
 	}
 	public boolean fillCandidates(ArrayList<String> candidates) {
-		try {  conn = DriverManager.getConnection(DB_URL,USER,PASS);
-	      stmt = conn.createStatement();
+		try {  
+			//conn = DriverManager.getConnection(DB_URL,USER,PASS);
+	      //stmt = conn.createStatement();
 			for (String candidate : candidates) {
 				sql = "INSERT INTO candidates(candidate_name, number_of_votes) VALUES ('"
 						+ candidate + "','" + 0 + "')";
@@ -243,8 +244,8 @@ votingSuccessful=true;
 		ResultSet rs;
 		int result = 0;
 		try {
-			  conn = DriverManager.getConnection(DB_URL,USER,PASS);
-		      stmt = conn.createStatement();
+			  //conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		      //stmt = conn.createStatement();
 			sql = "Select * from candidates WHERE candidate_name='"
 					+ Candidate_name + "'";
 				rs = stmt.executeQuery(sql);
@@ -261,8 +262,8 @@ votingSuccessful=true;
 		ArrayList<String> candidates = new ArrayList<String>();
 		ResultSet rs;
 		try {
-			  conn = DriverManager.getConnection(DB_URL,USER,PASS);
-		      stmt = conn.createStatement();
+			  //conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		      //stmt = conn.createStatement();
 			sql = "Select * from candidates";
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -280,8 +281,8 @@ votingSuccessful=true;
 		ResultSet rs;
 		ArrayList<String> candidates = new ArrayList<String>();
 		try {
-			  conn = DriverManager.getConnection(DB_URL,USER,PASS);
-		      stmt = conn.createStatement();
+			  //conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		      //stmt = conn.createStatement();
 			sql = "SELECT COUNT(*) AS rowcount FROM candidates";
 			rs = stmt.executeQuery(sql);
 			rs.next();
@@ -298,8 +299,8 @@ votingSuccessful=true;
 	}
 	public void cleanDatabase(){
 		try {
-			  conn = DriverManager.getConnection(DB_URL,USER,PASS);
-		      stmt = conn.createStatement();
+			 // conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		      //stmt = conn.createStatement();
 		      sql= "DELETE FROM candidates WHERE 1";
 		      stmt.executeUpdate(sql);
 		      sql= "DELETE FROM users WHERE 1";

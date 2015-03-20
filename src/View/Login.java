@@ -42,8 +42,8 @@ public class Login extends JFrame {
 
 	Login() {
 
-		String[] districtNames = { "District 1", "District 2", "District 3",
-				"District 4", "District 5" };
+		String[] districtNames = { "District 1"}; //"District 2", "District 3",
+				//"District 4", "District 5" };
 		districts = new JComboBox(districtNames);
 		// create menu bar
 		JMenuBar jmb = new JMenuBar();

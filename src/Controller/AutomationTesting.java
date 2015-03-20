@@ -16,6 +16,7 @@ public class AutomationTesting {
 	private ArrayList <String> names;
 	private Random r;
 	private int randomGenerator = 0;
+	Database_2 database;
 
 	public static void main(String args[]) {
 		new AutomationTesting();
@@ -35,7 +36,7 @@ public class AutomationTesting {
 	{
 		names = new ArrayList <String>();
 		String FileName = "UsersSimulation.txt";
-		Database_2 database  = new Database_2();
+		database  = new Database_2();
 		database.cleanDatabase();
 		database.generateCandidates("candidates.txt");
 		readFile(FileName);
@@ -52,7 +53,6 @@ public class AutomationTesting {
 	{
 		String array[];
 		candidates = new ArrayList <String>();
-		Database_2 database  = new Database_2();
 		candidates = database.getCandidates(1111);
 		BufferedReader in = new BufferedReader(new FileReader(fileName));
 		String line;

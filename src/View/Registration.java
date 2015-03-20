@@ -136,7 +136,7 @@ public class Registration extends JFrame {
 						status.setText("Status:Not Registered");
 						JOptionPane
 								.showMessageDialog(null,
-										"Registsration failed ! Please try again.");
+										"Registration failed ! Please try again.");
 						return;
 					} else {
 						status.setText("Status:Registered");
