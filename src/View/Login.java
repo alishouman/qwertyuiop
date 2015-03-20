@@ -167,7 +167,7 @@ public class Login extends JFrame {
 		try {
 			aSocket = new DatagramSocket();
 			byte[] m = message.getBytes();
-			InetAddress aHost = InetAddress.getByName("localhost"); // localHost
+			InetAddress aHost = InetAddress.getByName("172.17.60.198"); // localHost
 			DatagramPacket request = new DatagramPacket(m, message.length(),
 					aHost, portNumber);
 			aSocket.send(request);

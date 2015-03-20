@@ -115,8 +115,8 @@ registrationSuccessful=true;
 	      
 	      //STEP 6: Clean-up environment
 	      
-	      stmt.close();
-	      conn.close();
+	    //  stmt.close();
+	     // conn.close();
 	   }catch(SQLException se){
 	      //Handle errors for JDBC
 	      se.printStackTrace();
@@ -125,7 +125,7 @@ registrationSuccessful=true;
 	      e.printStackTrace();
 	   }finally{
 	      //finally block used to close resources
-	      try{
+	   /*   try{
 	         if(stmt!=null)
 	            stmt.close();
 	      }catch(SQLException se2){
@@ -135,7 +135,7 @@ registrationSuccessful=true;
 	            conn.close();
 	      }catch(SQLException se){
 	         se.printStackTrace();
-	      }//end finally try
+	      }//end finally try*/
 	   }//end try
 	   return registrationSuccessful;
 	  
@@ -155,8 +155,9 @@ registrationSuccessful=true;
 		 
 		    
 		   } 
-		   if(hasVoted!=null)
-			   return false;
+		   if(hasVoted!=null){
+			
+			   return false;}
 
 		   sql = "UPDATE users SET Candidate= '"+candidate+"'"+" WHERE Username='"+username+"'";
 		     stmt.executeUpdate(sql);
