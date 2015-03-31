@@ -4,28 +4,26 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
+
 import Database.Database;
 import View.ElectionResult;
 
-public class BackEndServer {
+public class BackEndServer extends Thread{
 	private final int portNumber = 5555;
 	private DatagramSocket aSocket = null;
 	private int serverNumber=0;
 	public static void main(String args[]) {
-		new BackEndServer();
+		BackEndServer  backEnd = new BackEndServer();
+		backEnd.run();
 	}
 
 	public BackEndServer() {
 		try {
 			aSocket = new DatagramSocket(portNumber);
-			System.out.println("Server_3, Usage: java UDPServer <" + portNumber+ ">");
+			System.out.println("BackEndServer, Usage: java UDPServer <" + portNumber+ ">");
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-
-		while (true) {
-			run();
 		}
 	}
 

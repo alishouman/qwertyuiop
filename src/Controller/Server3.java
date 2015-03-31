@@ -6,7 +6,7 @@ import java.net.InetAddress;
 
 import Database.Database;
 
-public class Server3 {
+public class Server3 extends Thread {
 
 	private int socket_no = 3333;
 	private final int portNumber = 5555;
@@ -15,7 +15,8 @@ public class Server3 {
 	private DatagramSocket aSocket = null;
 
 	public static void main(String args[]) {
-		new Server3();
+		Server3 server3 = new Server3();
+		server3.run();
 	}
 
 	public void setMessage(String message) {
@@ -28,7 +29,7 @@ public class Server3 {
 
 	public Server3() {
 		try {
-			System.out.println("Server_1, Usage: java UDPServer <" + socket_no
+			System.out.println("Server_3, Usage: java UDPServer <" + socket_no
 					+ ">");
 			aSocket = new DatagramSocket(socket_no);
 
@@ -39,16 +40,12 @@ public class Server3 {
 			} catch (Exception e) {
 				System.out.println("generate Candidates failed!!");
 			}
-
-			while (true) {
-				run();				
-			}
 		} catch (Exception e) {
 			System.out.println("couldnt connect to socket number: " + socket_no);
 		}
 	}
 
-	public void run() throws Exception {
+	public void run(){
 		while (true) {
 			recieveFromClient();
 			sendToClient();
