@@ -1,22 +1,18 @@
 package Controller;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.ArrayList;
 
 import Database.Database;
 
 public class Server1 {
 
 	private int socket_no = 1111;
-	private final int portNumber = 3333;
+	private final int portNumber = 5555;
 	private String message;
 	private DatagramPacket request_FromClient;
 	private DatagramSocket aSocket = null;
-	private ArrayList<String> candidates;
 
 	public static void main(String args[]) {
 		new Server1();
@@ -36,8 +32,7 @@ public class Server1 {
 					+ ">");
 			aSocket = new DatagramSocket(socket_no);
 
-			candidates = new ArrayList<String>();
-			Database database = new Database();
+			Database database = new Database(socket_no);
 			database.cleanDatabase();
 			try {
 				database.generateCandidates("candidates.txt");
@@ -71,7 +66,7 @@ public class Server1 {
 	}
 
 	public String vote(String username, String candidate) {
-		Database database = new Database();
+		Database database = new Database(socket_no);
 
 		boolean voted = database.vote(username, candidate);
 		if (voted)
@@ -82,7 +77,7 @@ public class Server1 {
 
 	public String register(String username, String password, String FirstName,String LastName,String Address,
 			String age) {
-		Database database = new Database();
+		Database database = new Database(socket_no);
 
 		if (Integer.parseInt(age) < 18)
 			return "False";
@@ -95,7 +90,7 @@ public class Server1 {
 	}
 
 	public String login(String username, String password) {
-		Database database = new Database();
+		Database database = new Database(socket_no);
 
 		boolean loggedin = database.checkLogin(username, password);
 		if (loggedin)
@@ -128,7 +123,7 @@ public class Server1 {
 				message = login(messages[1], messages[2]);
 				break;
 			case "Result":
-				Database database = new Database();
+				Database database = new Database(socket_no);
 				int total = database.totalNumberOfVotes(1111);
 				if (total == 0) message = "false";
 				else {

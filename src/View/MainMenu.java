@@ -70,7 +70,7 @@ public class MainMenu extends JFrame {
 
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				System.out.println("before LOGIN");
 				MainMenu.this.dispose();
 				MainMenu.this.setVisible(false);
 				Login login = new Login();
@@ -78,6 +78,7 @@ public class MainMenu extends JFrame {
 				login.setLocationRelativeTo(null);
 				login.setVisible(true);
 				login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				System.out.println("after LOGIN");
 			}
 		});
 

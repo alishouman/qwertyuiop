@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Database {
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-   static final String DB_URL = "jdbc:mysql://localhost/Server_1";
+   static String DB_URL = "jdbc:mysql://localhost/";
 
    //  Database credentials
    static final String USER = "root";
@@ -20,8 +20,9 @@ public class Database {
    Connection conn = null;
    Statement stmt = null;
    String sql;
-   public Database(){
-	   
+   private int portNumber;
+   public Database(int portNumber){
+	   this.portNumber = portNumber;
 	   //STEP 2: Register JDBC drive   
 	   	try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -231,6 +232,27 @@ votingSuccessful=true;
 			return false;
 		}
 	}
+	public String getURL (int portNumber)
+	{
+		switch (portNumber) {
+		case 1111:
+			DB_URL += "District1";
+			break;
+		case 2222:
+			DB_URL += "District2";
+			break;
+		case 3333:
+			DB_URL += "District2";
+			break;
+		default:
+			break;
+		}
+		return DB_URL;
+	}
+	public void setURL ()
+	{
+		DB_URL = "jdbc:mysql://localhost/";
+	}
 	public int getVotesCount(int portNumber, String Candidate_name) {
 		ResultSet rs;
 		int result = 0;
@@ -282,6 +304,8 @@ votingSuccessful=true;
 		
 		int sum = 0;
 		ResultSet rs;
+		setURL();
+		DB_URL = getURL(portNumber);
 		ArrayList<String> candidates = new ArrayList<String>();
 		try {
 			  conn = DriverManager.getConnection(DB_URL,USER,PASS);

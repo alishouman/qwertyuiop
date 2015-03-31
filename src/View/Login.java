@@ -42,8 +42,7 @@ public class Login extends JFrame {
 
 	Login() {
 
-		String[] districtNames = { "District 1"}; //"District 2", "District 3",
-				//"District 4", "District 5" };
+		String[] districtNames = { "District 1","District 2", "District 3"};
 		districts = new JComboBox(districtNames);
 		// create menu bar
 		JMenuBar jmb = new JMenuBar();
@@ -131,7 +130,7 @@ public class Login extends JFrame {
 						status.setText("Status:Logged in");
 						Login.this.dispose();
 						Login.this.setVisible(false);
-						Database database = new Database();
+						Database database = new Database(returnPortNumber());
 						ArrayList<String> candidates = database
 								.getCandidates(1111);
 						Vote vote = new Vote(jtfUsername.getText().toString(),
@@ -154,7 +153,20 @@ public class Login extends JFrame {
 
 	
 	}
-
+public int returnPortNumber ()
+{
+	String choice = districts.getSelectedItem().toString();
+	switch (choice){
+	case "District 1":
+		return 1111;
+	case "District 2":
+		return 2222;
+	case "District 3":
+		return 3333;
+	default:
+		return 0;
+	}
+}
 	public static void main(String arg[]) {
 		Login frame = new Login();
 		frame.pack();
@@ -167,7 +179,7 @@ public class Login extends JFrame {
 		try {
 			aSocket = new DatagramSocket();
 			byte[] m = message.getBytes();
-			InetAddress aHost = InetAddress.getByName("172.17.60.198"); // localHost
+			InetAddress aHost = InetAddress.getByName("localhost"); // localHost
 			DatagramPacket request = new DatagramPacket(m, message.length(),
 					aHost, portNumber);
 			aSocket.send(request);

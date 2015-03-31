@@ -6,16 +6,16 @@ import java.net.InetAddress;
 
 import Database.Database;
 
-public class Server3 {
+public class Server2 {
 
-	private int socket_no = 3333;
+	private int socket_no = 2222;
 	private final int portNumber = 5555;
 	private String message;
 	private DatagramPacket request_FromClient;
 	private DatagramSocket aSocket = null;
 
 	public static void main(String args[]) {
-		new Server3();
+		new Server2();
 	}
 
 	public void setMessage(String message) {
@@ -26,7 +26,7 @@ public class Server3 {
 		return message.trim();
 	}
 
-	public Server3() {
+	public Server2() {
 		try {
 			System.out.println("Server_1, Usage: java UDPServer <" + socket_no
 					+ ">");
@@ -123,7 +123,7 @@ public class Server3 {
 				message = login(messages[1], messages[2]);
 				break;
 			case "Result":
-				Database database = new Database(socket_no);
+				Database database = new Database(2222);
 				int total = database.totalNumberOfVotes(1111);
 				if (total == 0) message = "false";
 				else {
