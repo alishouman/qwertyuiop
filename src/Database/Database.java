@@ -257,6 +257,8 @@ votingSuccessful=true;
 		ResultSet rs;
 		int result = 0;
 		try {
+			setURL();
+			DB_URL = getURL(portNumber);
 			  conn = DriverManager.getConnection(DB_URL,USER,PASS);
 		      stmt = conn.createStatement();
 			sql = "Select * from candidates WHERE candidate_name='"
@@ -273,6 +275,8 @@ votingSuccessful=true;
 	}
 	public void cleanDatabase(){
 		try {
+			setURL();
+			DB_URL = getURL(portNumber);
 			  conn = DriverManager.getConnection(DB_URL,USER,PASS);
 		      stmt = conn.createStatement();
 		      sql= "DELETE FROM candidates WHERE 1";
@@ -287,6 +291,8 @@ votingSuccessful=true;
 		ArrayList<String> candidates = new ArrayList<String>();
 		ResultSet rs;
 		try {
+			setURL();
+			DB_URL = getURL(portNumber);
 			  conn = DriverManager.getConnection(DB_URL,USER,PASS);
 		      stmt = conn.createStatement();
 			sql = "Select * from candidates";

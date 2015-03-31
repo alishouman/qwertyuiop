@@ -132,9 +132,9 @@ public class Login extends JFrame {
 						Login.this.setVisible(false);
 						Database database = new Database(returnPortNumber());
 						ArrayList<String> candidates = database
-								.getCandidates(1111);
+								.getCandidates(returnPortNumber());
 						Vote vote = new Vote(jtfUsername.getText().toString(),
-								candidates);
+								candidates,returnPortNumber());
 						vote.pack();
 						vote.setLocationRelativeTo(null);
 						vote.setVisible(true);

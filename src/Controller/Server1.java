@@ -127,7 +127,7 @@ public class Server1 {
 				int total = database.totalNumberOfVotes(1111);
 				if (total == 0) message = "false";
 				else {
-					message = "True";
+					message = "True"+socket_no;
 				}
 				sendToServer3();
 			default:

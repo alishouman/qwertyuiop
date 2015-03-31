@@ -10,7 +10,7 @@ import View.ElectionResult;
 public class BackEndServer {
 	private final int portNumber = 5555;
 	private DatagramSocket aSocket = null;
-	
+	private int serverNumber=0;
 	public static void main(String args[]) {
 		new BackEndServer();
 	}
@@ -32,7 +32,7 @@ public class BackEndServer {
 	public void run() {
 		ElectionResult result;
 		if (receiveServer_1()) {
-			Database database = new Database();
+			Database database = new Database(serverNumber);
 			ArrayList<String> candidates = database.getCandidates(1111);
 			int[] values = new int[candidates.size()];
 			for (int i = 0; i < candidates.size(); i++) {
@@ -51,11 +51,14 @@ public class BackEndServer {
 	public boolean receiveServer_1() {
 		try {
 
-			byte[] buffer = new byte[6];// aSocket.getReceiveBufferSize()
+			byte[] buffer = new byte[20];// aSocket.getReceiveBufferSize()
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			aSocket.receive(reply);
-			if ((new String(reply.getData()).trim().equals("True")))
-				return true;
+			
+			if ((new String(reply.getData()).trim().substring(0, 4).equals("True"))){
+				serverNumber=Integer.parseInt((new String(reply.getData()).trim()).substring(4, 8));
+			
+				return true;}
 			else
 				return false;
 		} catch (Exception e) {

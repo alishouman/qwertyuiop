@@ -29,11 +29,12 @@ public class Vote extends JFrame {
 	JButton resultButton = new JButton("View Results");
 	JMenuItem jmiHelp, jmiAbout;
 	JLabel status = new JLabel("Status:Not Registered");
-	private final int portNumber = 1111;
+	private  int serverNumber = 0;
 	private DatagramSocket aSocket = null;
 	private ArrayList<String> Register_info;
 
-	Vote(String username1, ArrayList<String> candidates2) {
+	Vote(String username1, ArrayList<String> candidates2,int portNumber) {
+		serverNumber=portNumber;
 		this.username = username1;
 		String[] candidateNames = new String[candidates2.size()];
 		for (int i = 0; i < candidates2.size(); i++)
@@ -165,7 +166,7 @@ public class Vote extends JFrame {
 			byte[] m = message.getBytes();
 			InetAddress aHost = InetAddress.getByName("localhost"); // localHost
 			DatagramPacket request = new DatagramPacket(m, message.length(),
-					aHost, portNumber);
+					aHost, serverNumber);
 			aSocket.send(request);
 		} catch (Exception e) {
 			System.out.println("Send to server Failed!!");
