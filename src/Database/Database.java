@@ -320,9 +320,9 @@ votingSuccessful=true;
 			rs = stmt.executeQuery(sql);
 			rs.next();
 			int count = rs.getInt("rowcount");
-			candidates = getCandidates(1);
+			candidates = getCandidates(portNumber);
 			for (int i = 0; i < count; i++) {
-				sum += getVotesCount(1, candidates.get(i));
+				sum += getVotesCount(portNumber, candidates.get(i));
 			}
 		} catch (SQLException e) {
 			System.out.println("totalNumberOfVotes() Failed!");

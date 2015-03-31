@@ -33,10 +33,10 @@ public class BackEndServer {
 		ElectionResult result;
 		if (receiveServer_1()) {
 			Database database = new Database(serverNumber);
-			ArrayList<String> candidates = database.getCandidates(1111);
+			ArrayList<String> candidates = database.getCandidates(serverNumber);
 			int[] values = new int[candidates.size()];
 			for (int i = 0; i < candidates.size(); i++) {
-				values[i] = database.getVotesCount(1111, candidates.get(i));
+				values[i] = database.getVotesCount(serverNumber, candidates.get(i));
 			}
 			String[] names = new String[candidates.size()];
 			for (int i = 0; i < candidates.size(); i++)
@@ -57,7 +57,7 @@ public class BackEndServer {
 			
 			if ((new String(reply.getData()).trim().substring(0, 4).equals("True"))){
 				serverNumber=Integer.parseInt((new String(reply.getData()).trim()).substring(4, 8));
-			System.out.println("hey "+serverNumber);
+			
 				return true;}
 			else
 				return false;

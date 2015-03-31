@@ -178,7 +178,7 @@ public class Vote extends JFrame {
 			byte[] buffer = new byte[6];// aSocket.getReceiveBufferSize()
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			aSocket.receive(reply);
-			if ((new String(reply.getData()).trim().equals("True")))
+			if ((new String(reply.getData()).trim().substring(0,4).equals("True")))
 				return true;
 			else
 				return false;
