@@ -124,10 +124,10 @@ public class Server3 {
 				break;
 			case "Result":
 				Database database = new Database(socket_no);
-				int total = database.totalNumberOfVotes(1111);
+				int total = database.totalNumberOfVotes(socket_no);
 				if (total == 0) message = "false";
 				else {
-					message = "True";
+					message = "True"+socket_no;
 				}
 				sendToServer3();
 			default:

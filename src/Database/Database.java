@@ -242,7 +242,7 @@ votingSuccessful=true;
 			DB_URL += "District2";
 			break;
 		case 3333:
-			DB_URL += "District2";
+			DB_URL += "District3";
 			break;
 		default:
 			break;

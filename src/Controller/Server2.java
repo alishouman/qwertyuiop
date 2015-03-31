@@ -123,11 +123,11 @@ public class Server2 {
 				message = login(messages[1], messages[2]);
 				break;
 			case "Result":
-				Database database = new Database(2222);
-				int total = database.totalNumberOfVotes(1111);
+				Database database = new Database(socket_no);
+				int total = database.totalNumberOfVotes(socket_no);
 				if (total == 0) message = "false";
 				else {
-					message = "True";
+					message = "True"+socket_no;
 				}
 				sendToServer3();
 			default:

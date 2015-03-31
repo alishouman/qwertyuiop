@@ -57,7 +57,7 @@ public class BackEndServer {
 			
 			if ((new String(reply.getData()).trim().substring(0, 4).equals("True"))){
 				serverNumber=Integer.parseInt((new String(reply.getData()).trim()).substring(4, 8));
-			
+			System.out.println("hey "+serverNumber);
 				return true;}
 			else
 				return false;

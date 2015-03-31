@@ -37,7 +37,7 @@ public class Login extends JFrame {
 	JButton loginButton = new JButton("Login");
 	JMenuItem jmiHelp, jmiAbout;
 	JLabel status = new JLabel("Status:Not logged in");
-	private final int portNumber = 1111;
+	
 	private DatagramSocket aSocket = null;
 
 	Login() {
@@ -181,7 +181,7 @@ public int returnPortNumber ()
 			byte[] m = message.getBytes();
 			InetAddress aHost = InetAddress.getByName("localhost"); // localHost
 			DatagramPacket request = new DatagramPacket(m, message.length(),
-					aHost, portNumber);
+					aHost, returnPortNumber());
 			aSocket.send(request);
 		} catch (Exception e) {
 			System.out.println("Send to server Failed!!");
