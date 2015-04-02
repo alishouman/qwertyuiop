@@ -13,9 +13,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Database.*;
-import Controller.*;
 
-public class test {
+
+public class test_District1 {
 	Database database;
 	private int portNumber = 1111;
 	@Before
@@ -74,7 +74,7 @@ public class test {
 
 		candidates = readFile(fileName);
 		database.generateCandidates(fileName);
-		candidates_2 = database.getCandidates(1111);
+		candidates_2 = database.getCandidates(portNumber);
 		Collections.sort(candidates);
 		Collections.sort(candidates_2);
 		assertEquals(candidates, candidates_2);
@@ -86,9 +86,9 @@ public class test {
 		int result_2 = 0;
 
 		database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
-		result = database.getVotesCount(1111, "Ahmed");
+		result = database.getVotesCount(portNumber, "Ahmed");
 		database.vote("test_1", "Ahmed");
-		result_2 = database.getVotesCount(1111, "Ahmed");
+		result_2 = database.getVotesCount(portNumber, "Ahmed");
 		assertEquals(result + 1, result_2);
 	}
 
