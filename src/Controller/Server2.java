@@ -3,6 +3,7 @@ package Controller;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.concurrent.Semaphore;
 
 import Database.Database;
 
@@ -13,7 +14,7 @@ public class Server2 extends Thread{
 	private String message;
 	private DatagramPacket request_FromClient;
 	private DatagramSocket aSocket = null;
-
+	 private Semaphore sem = new Semaphore(10, true);
 	public static void main(String args[]) {
 		Server2  server2 = new Server2();
 		server2.run();
@@ -47,8 +48,15 @@ public class Server2 extends Thread{
 
 	public void run()  {
 		while (true) {
+			try {
+				sem.acquire();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			recieveFromClient();
 			sendToClient();
+			sem.release();
 		}
 	}
 
