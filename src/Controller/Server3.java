@@ -36,7 +36,7 @@ public class Server3 extends Thread {
 			Database database = new Database(socket_no);
 			database.cleanDatabase();
 			try {
-				database.generateCandidates("candidates.txt");
+				database.generateCandidates("input/candidates.txt");
 			} catch (Exception e) {
 				System.out.println("generate Candidates failed!!");
 			}

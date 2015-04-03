@@ -35,10 +35,10 @@ public class AutomationTesting {
 	public void run () throws Exception
 	{
 		names = new ArrayList <String>();
-		String FileName = "UsersSimulation.txt";
+		String FileName = "input/UsersSimulation.txt";
 		database  = new Database_2();
 		database.cleanDatabase();
-		database.generateCandidates("candidates.txt");
+		database.generateCandidates("input/candidates.txt");
 		readFile(FileName);
 		for (int i=0; i<names.size();i++)
 		{
@@ -46,7 +46,7 @@ public class AutomationTesting {
 			randomGenerator = r.nextInt(candidates.size());
 			database.vote(names.get(i),candidates.get(randomGenerator));
 		}
-		outputToFile("outputResults.txt");
+		outputToFile("output/outputResults.txt");
 	}
 
 	public void readFile(String fileName) throws Exception

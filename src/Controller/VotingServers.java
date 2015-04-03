@@ -13,5 +13,4 @@ public class VotingServers {
 		server2.start();
 		backEnd.start();
 	}
-
 }
