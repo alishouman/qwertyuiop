@@ -304,7 +304,8 @@ votingSuccessful=true;
 		      sql= "DELETE FROM candidates WHERE 1";
 		      stmt.executeUpdate(sql);
 		      sql= "DELETE FROM users WHERE 1";
-		      stmt.executeUpdate(sql);}
+		      stmt.executeUpdate(sql);
+		      }
 		catch (SQLException e){
 			
 		}

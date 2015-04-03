@@ -10,6 +10,7 @@ import java.awt.Rectangle;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+
 class Slice {
    double value;
    Color color;
