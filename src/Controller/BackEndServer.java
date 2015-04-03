@@ -14,8 +14,7 @@ public class BackEndServer extends Thread{
 	private int serverNumber=0;
 	public static void main(String args[]) {
 		BackEndServer  backEnd = new BackEndServer();
-		while(true){
-		backEnd.run();}
+		backEnd.run();
 	}
 
 	public BackEndServer() {

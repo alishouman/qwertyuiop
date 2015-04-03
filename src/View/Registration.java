@@ -80,7 +80,6 @@ public class Registration extends JFrame {
 		p1.add(jtfPassword = new JPasswordField(16));
 		p1.add(new JLabel("Address"));
 		p1.add(jtfAddress = new JTextField(20));
-		p1.add(new JLabel("District"));
 		p1.add(districts);
 		p1.add(new JLabel("Age"));
 		p1.add(jtfAge = new JTextField(4));
