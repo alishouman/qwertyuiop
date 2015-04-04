@@ -3,17 +3,23 @@ package Controller;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import Database.Database;
 
-public class Server3 extends Thread {
+public class Server3 extends Thread{
 
 	private int socket_no = 3333;
 	private final int portNumber = 5555;
 	private String message;
 	private DatagramPacket request_FromClient;
 	private DatagramSocket aSocket = null;
-
+	 private Semaphore sem = new Semaphore(10, true);
+private String messageQueue [][]=new String[10][7];
+private int index=0;
+private Semaphore lock=new Semaphore(1,true);
 	public static void main(String args[]) {
 		Server3 server3 = new Server3();
 		server3.run();
@@ -45,20 +51,33 @@ public class Server3 extends Thread {
 		}
 	}
 
-	public void run(){
+	public void run()  {
 		while (true) {
+			try {
+				sem.acquire();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
 			recieveFromClient();
-			sendToClient();
+			
+			sem.release();
 		}
 	}
 
 	public void sendToClient() {
 		try {
+			
 			byte[] m = getMessage().getBytes();
+			
 			request_FromClient.setData(m);
+		
 			aSocket.send(request_FromClient);
+			lock.release();
+		
 		} catch (Exception e) {
-			System.out.println("SERVER_1: sendToClient FAILED");
+			System.out.println("SERVER_3: sendToClient FAILED");
 		}
 	}
 
@@ -97,41 +116,60 @@ public class Server3 extends Thread {
 
 	}
 
-	public void recieveFromClient() {
+	public  void recieveFromClient() {
 		try {
+			lock.acquire();
 			byte[] buffer = new byte[100]; // aSocket.getReceiveBufferSize()
 			request_FromClient = new DatagramPacket(buffer, buffer.length);
 			aSocket.receive(request_FromClient);
-
+			
 			setMessage(new String(request_FromClient.getData()));
 			//System.out.println(message);
 			String messages[] = message.split(";");
+		
+			index=9-sem.availablePermits();
+			messageQueue[index]=messages;
+			Thread slave=new Thread(){
+			    @Override
+			    public void run() {
+			    	switch (messageQueue[index][0]) {
+					case "Vote":
+						message = vote(messageQueue[index][1], messageQueue[index][2]);
+						sendToClient();
 
-			switch (messages[0]) {
-			case "Vote":
-				message = vote(messages[1], messages[2]);
-
-				break;
-			case "Register":
-				message = register(messages[1], messages[2], messages[3],
-						messages[4],messages[5],messages[6]);
-				break;
-			case "Login":
-				message = login(messages[1], messages[2]);
-				break;
-			case "Result":
-				Database database = new Database(socket_no);
-				int total = database.totalNumberOfVotes(socket_no);
-				if (total == 0) message = "false";
-				else {
-					message = "True"+socket_no;
-				}
-				sendToServer3();
-			default:
-				break;
-			}
-		} catch (Exception e) {
-			System.out.println("SERVER_1: recieveFromClient FAILED");
+						break;
+					case "Register":
+						message = register(messageQueue[index][1], messageQueue[index][2], messageQueue[index][3],
+								messageQueue[index][4],messageQueue[index][5],messageQueue[index][6]);
+						System.out.println(message);
+						sendToClient();
+						break;
+					case "Login":
+						message = login(messageQueue[index][1], messageQueue[index][2]);
+						sendToClient();
+						break;
+					case "Result":
+						Database database = new Database(socket_no);
+						int total = database.totalNumberOfVotes(socket_no);
+						if (total == 0) message = "false";
+						else {
+							message = "True"+socket_no;
+							
+						}
+						sendToClient();
+						sendToServer3();
+					default:
+						break;
+					}
+			    }
+			
+			
+		};
+		slave.start();
+		
+		
+		}catch (Exception e) {
+			System.out.println("SERVER_3: recieveFromClient FAILED");
 		}
 	}
 

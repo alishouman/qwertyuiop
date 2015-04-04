@@ -19,7 +19,7 @@ public class Server1 extends Thread{
 	 private Semaphore sem = new Semaphore(10, true);
 private String messageQueue [][]=new String[10][7];
 private int index=0;
-private Lock mylock=new ReentrantLock();
+private Semaphore lock=new Semaphore(1,true);
 	public static void main(String args[]) {
 		Server1 server1 = new Server1();
 		server1.run();
@@ -68,9 +68,14 @@ private Lock mylock=new ReentrantLock();
 
 	public void sendToClient() {
 		try {
+			
 			byte[] m = getMessage().getBytes();
+			
 			request_FromClient.setData(m);
+		
 			aSocket.send(request_FromClient);
+			lock.release();
+		
 		} catch (Exception e) {
 			System.out.println("SERVER_1: sendToClient FAILED");
 		}
@@ -113,6 +118,7 @@ private Lock mylock=new ReentrantLock();
 
 	public  void recieveFromClient() {
 		try {
+			lock.acquire();
 			byte[] buffer = new byte[100]; // aSocket.getReceiveBufferSize()
 			request_FromClient = new DatagramPacket(buffer, buffer.length);
 			aSocket.receive(request_FromClient);
@@ -120,8 +126,7 @@ private Lock mylock=new ReentrantLock();
 			setMessage(new String(request_FromClient.getData()));
 			//System.out.println(message);
 			String messages[] = message.split(";");
-			
-			mylock.lock();
+		
 			index=9-sem.availablePermits();
 			messageQueue[index]=messages;
 			Thread slave=new Thread(){
@@ -136,6 +141,7 @@ private Lock mylock=new ReentrantLock();
 					case "Register":
 						message = register(messageQueue[index][1], messageQueue[index][2], messageQueue[index][3],
 								messageQueue[index][4],messageQueue[index][5],messageQueue[index][6]);
+						System.out.println(message);
 						sendToClient();
 						break;
 					case "Login":
@@ -160,7 +166,8 @@ private Lock mylock=new ReentrantLock();
 			
 		};
 		slave.start();
-		mylock.unlock();
+		
+		
 		}catch (Exception e) {
 			System.out.println("SERVER_1: recieveFromClient FAILED");
 		}

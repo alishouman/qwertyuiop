@@ -194,6 +194,7 @@ public class Registration extends JFrame {
 			byte[] buffer = new byte[6];// aSocket.getReceiveBufferSize()
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			aSocket.receive(reply);
+			
 			if ((new String(reply.getData()).trim().equals("True")))
 				return true;
 			else
