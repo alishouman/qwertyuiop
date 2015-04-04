@@ -110,11 +110,6 @@ public class MainMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				AutomationTesting test = new AutomationTesting();
-				JOptionPane.showMessageDialog(null,
-						"You have successufly ran the automation testing, "
-								+ "please check the output file for results",
-						"Automation testing", JOptionPane.INFORMATION_MESSAGE);
-
 			}
 		});
 	

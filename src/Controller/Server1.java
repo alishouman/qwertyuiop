@@ -42,7 +42,7 @@ private Lock mylock=new ReentrantLock();
 			Database database = new Database(socket_no);
 			database.cleanDatabase();
 			try {
-				database.generateCandidates("input/candidates.txt");
+				database.generateCandidates("input/File_1.txt");
 			} catch (Exception e) {
 				System.out.println("generate Candidates failed!!");
 			}
