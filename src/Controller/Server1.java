@@ -42,7 +42,7 @@ private Semaphore lock=new Semaphore(1,true);
 			Database database = new Database(socket_no);
 			database.cleanDatabase();
 			try {
-				database.generateCandidates("input/File_1.txt");
+				database.generateCandidates("input/candidates.txt");
 			} catch (Exception e) {
 				System.out.println("generate Candidates failed!!");
 			}
