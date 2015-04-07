@@ -21,7 +21,7 @@ public class test_District3 {
 	public void setUp() throws Exception {
 		database = new Database(portNumber);
 		database.cleanDatabase();
-		String fileName = "candidates.txt";
+		String fileName = "Input/File_3.txt";
 		database.generateCandidates(fileName);
 	}
 
@@ -67,7 +67,7 @@ public class test_District3 {
 	@Test
 	public void test_fillCandidates() throws Exception {
 
-		String fileName = "candidates.txt";
+		String fileName = "Input/File_3.txt";
 		ArrayList<String> candidates = new ArrayList<String>();
 		ArrayList<String> candidates_2 = new ArrayList<String>();
 
@@ -78,7 +78,31 @@ public class test_District3 {
 		Collections.sort(candidates_2);
 		assertEquals(candidates, candidates_2);
 	}
-
+	
+	@Test
+	public void test_voteTwice() {
+		
+		database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		database.vote("test_1", "Mohamed");
+		boolean result = database.vote("test_1", "Mohamed");
+		assertEquals(result , false);
+	}
+	@Test
+	public void test_RegisterTwice() {
+		
+		database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		boolean result = database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		assertEquals(result , false);
+	}
+	@Test
+	public void test_voteChange() {
+		
+		database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		database.vote("test_1", "Mohamed");
+		boolean result = database.vote("test_1", "Ali");
+		assertEquals(result , false);
+	}
+	
 	@Test
 	public void test_voteCount() {
 		int result = 0;
@@ -93,7 +117,7 @@ public class test_District3 {
 
 	public ArrayList<String> readFile(String fileName) throws IOException {
 		ArrayList<String> candidates = new ArrayList<String>();
-		BufferedReader in = new BufferedReader(new FileReader("candidates.txt"));
+		BufferedReader in = new BufferedReader(new FileReader("Input/File_3.txt"));
 		String line;
 		while ((line = in.readLine()) != null) {
 			candidates.add(line);

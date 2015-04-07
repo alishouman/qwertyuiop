@@ -22,14 +22,14 @@ public class test_District1 {
 	public void setUp() throws Exception {
 		database = new Database(portNumber);
 		database.cleanDatabase();
-		String fileName = "candidates.txt";
+		String fileName = "Input/File_1.txt";
 		database.generateCandidates(fileName);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 
-		database.cleanDatabase();
+		//database.cleanDatabase();
 
 	}
 
@@ -68,7 +68,7 @@ public class test_District1 {
 	@Test
 	public void test_fillCandidates() throws Exception {
 
-		String fileName = "candidates.txt";
+		String fileName = "Input/File_1.txt";
 		ArrayList<String> candidates = new ArrayList<String>();
 		ArrayList<String> candidates_2 = new ArrayList<String>();
 
@@ -84,17 +84,42 @@ public class test_District1 {
 	public void test_voteCount() {
 		int result = 0;
 		int result_2 = 0;
-
+		
 		database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
-		result = database.getVotesCount(portNumber, "Ahmed");
-		database.vote("test_1", "Ahmed");
-		result_2 = database.getVotesCount(portNumber, "Ahmed");
-		assertEquals(result + 1, result_2);
+		result = database.getVotesCount(portNumber, "Mohamed");
+		database.vote("test_1", "Mohamed");
+		result_2 = database.getVotesCount(portNumber, "Mohamed");
+		assertEquals(result +1, result_2);
 	}
 
+	@Test
+	public void test_voteTwice() {
+		
+		database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		database.vote("test_1", "Mohamed");
+		boolean result = database.vote("test_1", "Mohamed");
+		assertEquals(result , false);
+	}
+	
+	@Test
+	public void test_RegisterTwice() {
+		
+		database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		boolean result = database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		assertEquals(result , false);
+	}
+
+	@Test
+	public void test_voteChange() {
+		
+		database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		database.vote("test_1", "Mohamed");
+		boolean result = database.vote("test_1", "Ali");
+		assertEquals(result , false);
+	}
 	public ArrayList<String> readFile(String fileName) throws IOException {
 		ArrayList<String> candidates = new ArrayList<String>();
-		BufferedReader in = new BufferedReader(new FileReader("candidates.txt"));
+		BufferedReader in = new BufferedReader(new FileReader(fileName));
 		String line;
 		while ((line = in.readLine()) != null) {
 			candidates.add(line);

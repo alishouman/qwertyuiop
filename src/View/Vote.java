@@ -111,10 +111,8 @@ public class Vote extends JFrame {
 		
 		resultButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				try {
 					send_to_server("Result");
-
 					if (!receiveServer_1()) {
 						JOptionPane.showMessageDialog(null,
 								"Sorry, No body placed a vote yet!\n"+"Be the first one to vote...");
@@ -138,8 +136,6 @@ public class Vote extends JFrame {
 					send_to_server("Vote" + ";" + username + ";"
 							+ candidates.getSelectedItem().toString());
 					if (!receiveServer_1()) {
-						// JOptionPane.showMessageDialog(null,
-						// "Sorry, wrong credentials");
 						status.setText("Status:Havent Voted");
 						JOptionPane.showMessageDialog(null,
 								"Sorry, You have already placed you vote...");
@@ -156,10 +152,7 @@ public class Vote extends JFrame {
 				}
 			}
 		});
-
-	
 	}
-
 	public void send_to_server(String message) {
 		try {
 			aSocket = new DatagramSocket();
@@ -185,8 +178,6 @@ public class Vote extends JFrame {
 		} catch (Exception e) {
 			System.out.println("Server couldn't register you!!");
 			return false;
-
 		}
 	}
-
 }

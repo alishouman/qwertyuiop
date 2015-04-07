@@ -22,7 +22,7 @@ public class test_District2 {
 	public void setUp() throws Exception {
 		database = new Database(portNumber);
 		database.cleanDatabase();
-		String fileName = "candidates.txt";
+		String fileName = "Input/File_2.txt";
 		database.generateCandidates(fileName);
 	}
 
@@ -35,7 +35,6 @@ public class test_District2 {
 
 	@Test
 	public void testVote() {
-		// Server1 myUnit = new Server1();
 		database.register("peter1234", "12345", "Peter", "Hani", "Canada", "30");
 		Boolean result = database.vote("peter1234", "Ahmed");
 		assertEquals(true, result);
@@ -64,11 +63,33 @@ public class test_District2 {
 				"Canada", "30");
 		assertEquals(true, result);
 	}
-
+	@Test
+	public void test_voteTwice() {
+		
+		database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		database.vote("test_1", "Mohamed");
+		boolean result = database.vote("test_1", "Mohamed");
+		assertEquals(result , false);
+	}
+	@Test
+	public void test_RegisterTwice() {
+		
+		database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		boolean result = database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		assertEquals(result , false);
+	}
+	@Test
+	public void test_voteChange() {
+		
+		database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		database.vote("test_1", "Mohamed");
+		boolean result = database.vote("test_1", "Ali");
+		assertEquals(result , false);
+	}
 	@Test
 	public void test_fillCandidates() throws Exception {
 
-		String fileName = "candidates.txt";
+		String fileName = "Input/File_2.txt";
 		ArrayList<String> candidates = new ArrayList<String>();
 		ArrayList<String> candidates_2 = new ArrayList<String>();
 
@@ -94,7 +115,7 @@ public class test_District2 {
 
 	public ArrayList<String> readFile(String fileName) throws IOException {
 		ArrayList<String> candidates = new ArrayList<String>();
-		BufferedReader in = new BufferedReader(new FileReader("candidates.txt"));
+		BufferedReader in = new BufferedReader(new FileReader("Input/File_2.txt"));
 		String line;
 		while ((line = in.readLine()) != null) {
 			candidates.add(line);

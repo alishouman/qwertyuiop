@@ -108,7 +108,6 @@ public class MainMenu extends JFrame {
 
 		testButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				AutomationTesting test = new AutomationTesting();
 			}
 		});
