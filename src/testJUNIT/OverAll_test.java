@@ -52,6 +52,7 @@ public class OverAll_test {
 	{
 		database1.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
 		Boolean result = database2.checkLogin("test_1", "test_1");
+		
 		assertEquals(result, false);
 	}
 
@@ -85,14 +86,50 @@ public class OverAll_test {
 		Boolean result = database1.checkLogin("test_1", "test_1");
 		assertEquals(result, false);
 	}
+	
 	@Test
-	public void Regsiter_different_districts_6()
+	public void login_vote_different_districts()
 	{
-		database3.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
-		Boolean result = database2.checkLogin("test_1", "test_1");
+		database1.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		Boolean result = database2.vote_2("test_1", "test_1","Mohamed");
 		assertEquals(result, false);
 	}
-	
+	@Test
+	public void login_vote_different_districts_1()
+	{
+		database1.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		Boolean result = database3.vote_2("test_1", "test_1","Mohamed");
+		assertEquals(result, false);
+	}
+	@Test
+	public void login_vote_different_districts_2()
+	{
+		database2.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		Boolean result = database1.vote_2("test_1", "test_1","Mohamed");
+		assertEquals(result, false);
+	}
+	@Test
+	public void login_vote_different_districts_3()
+	{
+		database2.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		Boolean result = database3.vote_2("test_1", "test_1","Mohamed");
+		assertEquals(result, false);
+	}
+
+	@Test
+	public void login_vote_different_districts_4()
+	{
+		database3.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		Boolean result = database1.vote_2("test_1", "test_1","Mohamed");
+		assertEquals(result, false);
+	}
+	@Test
+	public void login_vote_different_districts_5()
+	{
+		database3.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		Boolean result = database2.vote_2("test_1", "test_1","Mohamed");
+		assertEquals(result, false);
+	}
 	public ArrayList<String> readFile(String fileName) throws IOException {
 		ArrayList<String> candidates = new ArrayList<String>();
 		BufferedReader in = new BufferedReader(new FileReader("Input/File_3.txt"));

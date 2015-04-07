@@ -141,7 +141,77 @@ registrationSuccessful=true;
 	   return registrationSuccessful;
 	  
 	}//end main
-   public boolean vote(String username,String candidate){
+   public boolean vote_2(String username,String password,String candidate){
+	   
+	  
+	   boolean votingSuccessful=false;
+	   try{
+		   if (!checkLogin(username,password)){
+			   return false;
+		   }   
+			   conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			      stmt = conn.createStatement();
+			   sql = "Select * from users WHERE Username='"+username+"'";
+			   
+			   ResultSet rs = stmt.executeQuery(sql);
+			   String hasVoted="null";
+			   while (rs.next())
+			   {
+			 hasVoted= rs.getString("Candidate");
+			 
+			    
+			   } 
+			   if(hasVoted!=null){
+				
+				   return false;}
+	
+			   sql = "UPDATE users SET Candidate= '"+candidate+"'"+" WHERE Username='"+username+"'";
+			     stmt.executeUpdate(sql);
+		     sql = "Select * from candidates WHERE candidate_name='"+candidate+"'";
+		     
+ rs = stmt.executeQuery(sql);
+int number_of_votes = 0;
+while (rs.next())
+{
+ number_of_votes = rs.getInt("number_of_votes");
+  
+}
+number_of_votes++;
+sql = "UPDATE candidates SET number_of_votes="+number_of_votes+" WHERE candidate_name='"+candidate+"'";
+stmt.executeUpdate(sql);
+   
+votingSuccessful=true;
+	      //STEP 5: Extract data from result set
+	   
+	      
+	      //STEP 6: Clean-up environment
+	      
+	      stmt.close();
+	      conn.close();
+	   }catch(SQLException se){
+	      //Handle errors for JDBC
+	      se.printStackTrace();
+	   }catch(Exception e){
+	      //Handle errors for Class.forName
+	      e.printStackTrace();
+	   }finally{
+	      //finally block used to close resources
+	      try{
+	         if(stmt!=null)
+	            stmt.close();
+	      }catch(SQLException se2){
+	      }// nothing we can do
+	      try{
+	         if(conn!=null)
+	            conn.close();
+	      }catch(SQLException se){
+	         se.printStackTrace();
+	      }//end finally try
+	   }//end try
+	   return votingSuccessful;
+	  
+	}
+public boolean vote(String username,String candidate){
 	   
 	   boolean votingSuccessful=false;
 	   try{
