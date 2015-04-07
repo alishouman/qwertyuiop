@@ -156,8 +156,9 @@ private Semaphore lock=new Semaphore(1,true);
 							message = "True"+socket_no;
 							
 						}
-						sendToClient();
 						sendToServer3();
+						sendToClient();
+						
 					default:
 						break;
 					}
