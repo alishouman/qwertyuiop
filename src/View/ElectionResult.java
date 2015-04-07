@@ -35,7 +35,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ElectionResult extends JFrame {
+public class ElectionResult extends JPanel {
 	JPanel splitPane;
 	JPanel result;
 	
@@ -56,6 +56,7 @@ public class ElectionResult extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		this.setLayout(new BorderLayout());
 		result=new JPanel();
 		result.setLayout(new BorderLayout());
 
@@ -80,10 +81,10 @@ public class ElectionResult extends JFrame {
 		
 		splitPane.add(pieChart,BorderLayout.EAST);
 		splitPane.add(barChart,BorderLayout.WEST);
-		getContentPane().add(splitPane,BorderLayout.EAST);
+		add(splitPane,BorderLayout.EAST);
 		JToolBar toolBar = new JToolBar();
-		getContentPane().add(toolBar, BorderLayout.NORTH);
-		getContentPane().add(result, BorderLayout.CENTER);
+		add(toolBar, BorderLayout.NORTH);
+		add(result, BorderLayout.CENTER);
 		JLabel lblWelcomeToThe = new JLabel("Welcome to the election results page.");
 		lblWelcomeToThe.setFont(new Font("Tw Cen MT", Font.BOLD, 17));
 		toolBar.add(lblWelcomeToThe);
@@ -107,7 +108,16 @@ public class ElectionResult extends JFrame {
 			}
 		});
 	}
+	/*public void revalidate(){
+		result.revalidate();
+	}*/
 
-	
+	public static void main(String[]args){
+		JFrame frame=new JFrame();
+		frame.setSize(1000, 1000);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		frame.add(new ElectionResult(null, args));
+	}
 
 }

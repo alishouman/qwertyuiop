@@ -117,6 +117,18 @@ public class test_District1 {
 		boolean result = database.vote("test_1", "Ali");
 		assertEquals(result , false);
 	}
+	@Test
+	public void test_multipleVotes() {
+		
+		database.register("test_1", "test_1", "Ahmed", "Omar", "Canada", "20");
+		database.register("test_2", "test_2", "Ahmed", "Omar", "Canada", "20");
+		database.register("test_3", "test_3", "Ahmed", "Omar", "Canada", "20");
+		database.vote("test_1", "Mohamed");
+		database.vote("test_2", "Mohamed");
+		database.vote("test_3", "Mohamed");
+		int result = database.getVotesCount(1111,"Mohamed");
+		assertEquals(result , 3);
+	}
 	public ArrayList<String> readFile(String fileName) throws IOException {
 		ArrayList<String> candidates = new ArrayList<String>();
 		BufferedReader in = new BufferedReader(new FileReader(fileName));

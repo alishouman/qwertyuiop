@@ -4,6 +4,10 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.JFrame;
 
 import Database.Database;
 import View.ElectionResult;
@@ -12,6 +16,7 @@ public class BackEndServer extends Thread{
 	private final int portNumber = 5555;
 	private DatagramSocket aSocket = null;
 	private int serverNumber=0;
+	
 	public static void main(String args[]) {
 		BackEndServer  backEnd = new BackEndServer();
 		while(true)
@@ -29,21 +34,11 @@ public class BackEndServer extends Thread{
 	}
 
 	public void run() {
-		ElectionResult result;
+	
 		if (receiveServer_1()) {
-			Database database = new Database(serverNumber);
-			ArrayList<String> candidates = database.getCandidates(serverNumber);
-			int[] values = new int[candidates.size()];
-			for (int i = 0; i < candidates.size(); i++) {
-				values[i] = database.getVotesCount(serverNumber, candidates.get(i));
-			}
-			String[] names = new String[candidates.size()];
-			for (int i = 0; i < candidates.size(); i++)
-				names[i] = candidates.get(i);
-			result = new ElectionResult(values, names);
-			result.setSize(1000, 1000);
-			result.setLocationRelativeTo(null);
-			result.setVisible(true);
+			ElectionTask thread=new ElectionTask(serverNumber);
+	
+			
 		}
 	}
 
